@@ -2,7 +2,7 @@ import React from "react";
 import { useAppContext } from "../../context/AppContext";
 import { assets } from "../../assets/assets";
 import { Link, Outlet } from "react-router-dom";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 const SellerLayout = () => {
   const { axios, navigate } = useAppContext();

@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+import logo from "./kamma logo green.svg";
 import search_icon from "./search_icon.svg";
 import remove_icon from "./remove_icon.svg";
 import arrow_right_icon_colored from "./arrow_right_icon_colored.svg";
@@ -20,18 +20,18 @@ import box_icon from "./box_icon.svg";
 import trust_icon from "./trust_icon.svg";
 import black_arrow_icon from "./black_arrow_icon.svg";
 import white_arrow_icon from "./white_arrow_icon.svg";
-import main_banner_bg from "./main_banner_bg.png";
-import main_banner_bg_sm from "./main_banner_bg_sm.png";
-import bottom_banner_image from "./bottom_banner_image.png";
-import bottom_banner_image_sm from "./bottom_banner_image_sm.png";
+import main_banner_bg from "./banner.png";
+import main_banner_bg_sm from "./banner.png";
+import bottom_banner_image from "./bottom-banner.png";
+import bottom_banner_image_sm from "./bottom-banner.png";
 import add_address_iamge from "./add_address_image.svg";
-import organic_vegitable_image from "./organic_vegitable_image.png";
-import fresh_fruits_image from "./fresh_fruits_image.png";
-import bottles_image from "./bottles_image.png";
-import maggi_image from "./maggi_image.png";
-import dairy_product_image from "./dairy_product_image.png";
-import bakery_image from "./bakery_image.png";
-import grain_image from "./grain_image.png";
+import organic_vegitable_image from "./rollon.png";
+import fresh_fruits_image from "./rollon.png";
+import bottles_image from "./rollon.png";
+import maggi_image from "./rollon.png";
+import dairy_product_image from "./rollon.png";
+import bakery_image from "./rollon.png";
+import grain_image from "./rollon.png";
 import potato_image_1 from "./potato_image_1.png";
 import potato_image_2 from "./potato_image_2.png";
 import potato_image_3 from "./potato_image_3.png";
@@ -102,44 +102,44 @@ export const assets = {
 
 export const categories = [
   {
-    text: "Organic veggies",
-    path: "Vegetables",
+    text: "Cosmo Medical",
+    path: "Roll-on",
     image: organic_vegitable_image,
     bgColor: "#FEF6DA",
   },
   {
-    text: "Fresh Fruits",
-    path: "Fruits",
+    text: "Cosmo Medical",
+    path: "Roll-on",
     image: fresh_fruits_image,
     bgColor: "#FEE0E0",
   },
   {
-    text: "Cold Drinks",
-    path: "Drinks",
+    text: "Cosmo Medical",
+    path: "Roll-on",
     image: bottles_image,
     bgColor: "#F0F5DE",
   },
   {
-    text: "Instant Food",
-    path: "Instant",
+    text: "Cosmo Medical",
+    path: "Roll-on",
     image: maggi_image,
     bgColor: "#E1F5EC",
   },
   {
-    text: "Dairy Products",
-    path: "Dairy",
+    text: "Cosmo Medical",
+    path: "Roll-on",
     image: dairy_product_image,
     bgColor: "#FEE6CD",
   },
   {
-    text: "Bakery & Breads",
-    path: "Bakery",
+    text: "Cosmo Medical",
+    path: "Roll-on",
     image: bakery_image,
     bgColor: "#E0F6FE",
   },
   {
-    text: "Grains & Cereals",
-    path: "Grains",
+    text: "Cosmo Medical",
+    path: "Roll-on",
     image: grain_image,
     bgColor: "#F1E3F9",
   },
@@ -181,17 +181,17 @@ export const features = [
   {
     icon: delivery_truck_icon,
     title: "Fastest Delivery",
-    description: "Groceries delivered in under 30 minutes.",
+    description: "Cosmos delivered in under 30 minutes.",
   },
   {
     icon: leaf_icon,
-    title: "Freshness Guaranteed",
+    title: "Quality Guaranteed",
     description: "Fresh produce straight from the source.",
   },
   {
     icon: coin_icon,
     title: "Affordable Prices",
-    description: "Quality groceries at unbeatable prices.",
+    description: "Quality Products at unbeatable prices.",
   },
   {
     icon: trust_icon,

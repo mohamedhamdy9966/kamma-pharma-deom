@@ -94,7 +94,7 @@ const Cart = () => {
     }
   };
   useEffect(() => {
-    if (products.length > 0 && cartItems) {
+    if (products?.length > 0 && cartItems) {
       getCart();
     }
   }, [products, cartItems]);
@@ -103,7 +103,7 @@ const Cart = () => {
       getUserAddress();
     }
   }, [user]);
-  return products.length > 0 && cartItems ? (
+  return products?.length > 0 && cartItems ? (
     <div className="flex flex-col md:flex-row mt-16">
       <div className="flex-1 max-w-4xl">
         <h1 className="text-3xl font-medium mb-6">

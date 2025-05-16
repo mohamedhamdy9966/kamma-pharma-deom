@@ -16,18 +16,17 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // database connection
-await connectDB();
-await connectCloudinary();
 
-// Allow Multiple Origins
-const allowedOrigins = ["https://localhost:5173"];
+
 
 app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhooks);
 
 // Middleware Configuration
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+// app.use(cors({ origin: allowedOrigins, credentials: true }));
+app.use(cors({ origin: true, credentials: true }));
+
 
 app.get("/", (req, res) => res.send("API is Working"));
 app.use("/api/user", userRouter);
@@ -38,6 +37,17 @@ app.use("/api/address", addressRouter);
 app.use("/api/order", orderRouter);
 
 // testing the server
-app.listen(port, () => {
-  console.log(`Server is Running on hhttps://localhost:${port}`);
-});
+const startServer = async () => {
+  try {
+    await connectDB();
+    await connectCloudinary();
+
+    app.listen(port, () => {
+      console.log(`Server is Running on http://localhost:${port}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error);
+  }
+};
+
+startServer();

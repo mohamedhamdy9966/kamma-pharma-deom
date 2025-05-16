@@ -15,6 +15,8 @@ import AddProduct from "./pages/seller/AddProduct";
 import ProductList from "./pages/seller/ProductList";
 import AllOrders from "./pages/seller/AllOrders";
 import Loading from "./components/Loading";
+import SellerLogin from "./components/seller/SellerLogin";
+import Login from "./components/Login";
 
 const App = () => {
   const isSellerPath = useLocation().pathname.includes("seller");
