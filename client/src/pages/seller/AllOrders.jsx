@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "../../context/AppContext";
 import { assets } from "../../assets/assets";
-import axios from "axios";
 import toast from "react-hot-toast";
 
 const AllOrders = () => {
-  const { currency } = useAppContext();
+  const { currency,axios } = useAppContext();
   const [orders, setOrders] = useState([]);
   const fetchOrders = async () => {
     try {
