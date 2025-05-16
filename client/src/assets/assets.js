@@ -26,12 +26,10 @@ import bottom_banner_image from "./bottom-banner.png";
 import bottom_banner_image_sm from "./bottom-banner.png";
 import add_address_iamge from "./add_address_image.svg";
 import organic_vegitable_image from "./rollon.png";
-import fresh_fruits_image from "./rollon.png";
-import bottles_image from "./rollon.png";
-import maggi_image from "./rollon.png";
-import dairy_product_image from "./rollon.png";
-import bakery_image from "./rollon.png";
-import grain_image from "./rollon.png";
+import fresh_fruits_image from "./cream.png";
+import bottles_image from "./wash.png";
+import maggi_image from "./massaga.png";
+import dairy_product_image from "./sunscreen.png";
 import potato_image_1 from "./potato_image_1.png";
 import potato_image_2 from "./potato_image_2.png";
 import potato_image_3 from "./potato_image_3.png";
@@ -102,46 +100,34 @@ export const assets = {
 
 export const categories = [
   {
-    text: "Cosmo Medical",
+    text: "Roll-on",
     path: "Roll-on",
     image: organic_vegitable_image,
     bgColor: "#FEF6DA",
   },
   {
-    text: "Cosmo Medical",
+    text: "Cream",
     path: "Roll-on",
     image: fresh_fruits_image,
     bgColor: "#FEE0E0",
   },
   {
-    text: "Cosmo Medical",
+    text: "Facial Wash",
     path: "Roll-on",
     image: bottles_image,
     bgColor: "#F0F5DE",
   },
   {
-    text: "Cosmo Medical",
+    text: "Massage Cream",
     path: "Roll-on",
     image: maggi_image,
     bgColor: "#E1F5EC",
   },
   {
-    text: "Cosmo Medical",
+    text: "Sun Screen",
     path: "Roll-on",
     image: dairy_product_image,
     bgColor: "#FEE6CD",
-  },
-  {
-    text: "Cosmo Medical",
-    path: "Roll-on",
-    image: bakery_image,
-    bgColor: "#E0F6FE",
-  },
-  {
-    text: "Cosmo Medical",
-    path: "Roll-on",
-    image: grain_image,
-    bgColor: "#F1E3F9",
   },
 ];
 
