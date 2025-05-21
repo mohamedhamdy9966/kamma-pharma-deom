@@ -3,11 +3,13 @@ import Categories from '../components/Categories';
 import BestSeller from '../components/BestSeller';
 import BottomBanner from '../components/BottomBanner';
 import NewsLetter from '../components/NewsLetter';
+import Slider from '../components/Slider';
 
 const Home = () => {
   return (
     <div className='mt-10'>
       <MainBanner/>
+      <Slider/>
       <Categories/>
       <BestSeller/>
       <BottomBanner/>

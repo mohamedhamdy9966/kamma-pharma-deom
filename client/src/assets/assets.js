@@ -1,4 +1,6 @@
 import logo from "./kamma logo green.svg";
+import about from "./about.png";
+import contact from "./contact.png";
 import search_icon from "./search_icon.svg";
 import remove_icon from "./remove_icon.svg";
 import arrow_right_icon_colored from "./arrow_right_icon_colored.svg";
@@ -30,46 +32,11 @@ import fresh_fruits_image from "./cream.png";
 import bottles_image from "./wash.png";
 import maggi_image from "./massaga.png";
 import dairy_product_image from "./sunscreen.png";
-import potato_image_1 from "./potato_image_1.png";
-import potato_image_2 from "./potato_image_2.png";
-import potato_image_3 from "./potato_image_3.png";
-import potato_image_4 from "./potato_image_4.png";
-import tomato_image from "./tomato_image.png";
-import carrot_image from "./carrot_image.png";
-import apple_image from "./apple_image.png";
-import amul_milk_image from "./amul_milk_image.png";
-import coca_cola_image from "./coca_cola_image.png";
-import brown_bread_image from "./brown_bread_image.png";
-import basmati_rice_image from "./basmati_rice_image.png";
-import paneer_image from "./paneer_image.png";
-import orange_image from "./orange_image.png";
-import pepsi_image from "./pepsi_image.png";
-import wheat_flour_image from "./wheat_flour_image.png";
-import cheese_image from "./cheese_image.png";
-import eggs_image from "./eggs_image.png";
-import spinach_image_1 from "./spinach_image_1.png";
-import onion_image_1 from "./onion_image_1.png";
-import banana_image_1 from "./banana_image_1.png";
-import mango_image_1 from "./mango_image_1.png";
-import grapes_image_1 from "./grapes_image_1.png";
-import paneer_image_2 from "./paneer_image_2.png";
-import sprite_image_1 from "./sprite_image_1.png";
-import fanta_image_1 from "./fanta_image_1.png";
-import seven_up_image_1 from "./seven_up_image_1.png";
-import top_ramen_image from "./top_ramen_image.png";
-import knorr_soup_image from "./knorr_soup_image.png";
-import yippee_image from "./yippee_image.png";
-import maggi_oats_image from "./maggi_oats_image.png";
-import butter_croissant_image from "./butter_croissant_image.png";
-import chocolate_cake_image from "./chocolate_cake_image.png";
-import whole_wheat_bread_image from "./whole_wheat_bread_image.png";
-import vanilla_muffins_image from "./vanilla_muffins_image.png";
-import quinoa_image from "./quinoa_image.png";
-import brown_rice_image from "./brown_rice_image.png";
-import barley_image from "./barley_image.png";
 
 export const assets = {
   logo,
+  about,
+  contact,
   search_icon,
   remove_icon,
   arrow_right_icon_colored,
@@ -194,7 +161,7 @@ export const dummyProducts = [
     category: "Vegetables",
     price: 25,
     offerPrice: 20,
-    image: [potato_image_1, potato_image_2, potato_image_3, potato_image_4],
+    image: [],
     description: [
       "Fresh and organic",
       "Rich in carbohydrates",
@@ -210,7 +177,7 @@ export const dummyProducts = [
     category: "Vegetables",
     price: 40,
     offerPrice: 35,
-    image: [tomato_image],
+    image: [],
     description: [
       "Juicy and ripe",
       "Rich in Vitamin C",
@@ -227,7 +194,7 @@ export const dummyProducts = [
     category: "Vegetables",
     price: 30,
     offerPrice: 28,
-    image: [carrot_image],
+    image: [],
     description: [
       "Sweet and crunchy",
       "Good for eyesight",
@@ -243,7 +210,7 @@ export const dummyProducts = [
     category: "Vegetables",
     price: 18,
     offerPrice: 15,
-    image: [spinach_image_1],
+    image: [],
     description: [
       "Rich in iron",
       "High in vitamins",
@@ -259,7 +226,7 @@ export const dummyProducts = [
     category: "Vegetables",
     price: 22,
     offerPrice: 19,
-    image: [onion_image_1],
+    image: [],
     description: [
       "Fresh and pungent",
       "Perfect for cooking",
@@ -277,7 +244,7 @@ export const dummyProducts = [
     category: "Fruits",
     price: 120,
     offerPrice: 110,
-    image: [apple_image],
+    image: [],
     description: [
       "Crisp and juicy",
       "Rich in fiber",
@@ -295,7 +262,7 @@ export const dummyProducts = [
     category: "Fruits",
     price: 80,
     offerPrice: 75,
-    image: [orange_image],
+    image: [],
     description: [
       "Juicy and sweet",
       "Rich in Vitamin C",
@@ -311,7 +278,7 @@ export const dummyProducts = [
     category: "Fruits",
     price: 50,
     offerPrice: 45,
-    image: [banana_image_1],
+    image: [],
     description: [
       "Sweet and ripe",
       "High in potassium",
@@ -328,7 +295,7 @@ export const dummyProducts = [
 
     price: 150,
     offerPrice: 140,
-    image: [mango_image_1],
+    image: [],
     description: [
       "Sweet and flavorful",
       "Perfect for smoothies and desserts",
@@ -344,7 +311,7 @@ export const dummyProducts = [
     category: "Fruits",
     price: 70,
     offerPrice: 65,
-    image: [grapes_image_1],
+    image: [],
     description: [
       "Fresh and juicy",
       "Rich in antioxidants",
@@ -362,7 +329,7 @@ export const dummyProducts = [
     category: "Dairy",
     price: 60,
     offerPrice: 55,
-    image: [amul_milk_image],
+    image: [],
     description: [
       "Pure and fresh",
       "Rich in calcium",
@@ -379,7 +346,7 @@ export const dummyProducts = [
     category: "Dairy",
     price: 90,
     offerPrice: 85,
-    image: [paneer_image],
+    image: [],
     description: [
       "Soft and fresh",
       "Rich in protein",
@@ -395,7 +362,7 @@ export const dummyProducts = [
     category: "Dairy",
     price: 90,
     offerPrice: 85,
-    image: [eggs_image],
+    image: [],
     description: [
       "Farm fresh",
       "Rich in protein",
@@ -411,7 +378,7 @@ export const dummyProducts = [
     category: "Dairy",
     price: 90,
     offerPrice: 85,
-    image: [paneer_image_2],
+    image: [],
     description: [
       "Soft and fresh",
       "Rich in protein",
@@ -427,7 +394,7 @@ export const dummyProducts = [
     category: "Dairy",
     price: 140,
     offerPrice: 130,
-    image: [cheese_image],
+    image: [],
     description: [
       "Creamy and delicious",
       "Perfect for pizzas and sandwiches",
@@ -445,7 +412,7 @@ export const dummyProducts = [
     category: "Drinks",
     price: 80,
     offerPrice: 75,
-    image: [coca_cola_image],
+    image: [],
     description: [
       "Refreshing and fizzy",
       "Perfect for parties and gatherings",
@@ -461,7 +428,7 @@ export const dummyProducts = [
     category: "Drinks",
     price: 78,
     offerPrice: 73,
-    image: [pepsi_image],
+    image: [],
     description: [
       "Chilled and refreshing",
       "Perfect for celebrations",
@@ -477,7 +444,7 @@ export const dummyProducts = [
     category: "Drinks",
     price: 79,
     offerPrice: 74,
-    image: [sprite_image_1],
+    image: [],
     description: [
       "Refreshing citrus taste",
       "Perfect for hot days",
@@ -493,7 +460,7 @@ export const dummyProducts = [
     category: "Drinks",
     price: 77,
     offerPrice: 72,
-    image: [fanta_image_1],
+    image: [],
     description: [
       "Sweet and fizzy",
       "Great for parties and gatherings",
@@ -509,7 +476,7 @@ export const dummyProducts = [
     category: "Drinks",
     price: 76,
     offerPrice: 71,
-    image: [seven_up_image_1],
+    image: [],
     description: [
       "Refreshing lemon-lime flavor",
       "Perfect for refreshing",
@@ -527,7 +494,7 @@ export const dummyProducts = [
     category: "Grains",
     price: 550,
     offerPrice: 520,
-    image: [basmati_rice_image],
+    image: [],
     description: [
       "Long grain and aromatic",
       "Perfect for biryani and pulao",
@@ -543,7 +510,7 @@ export const dummyProducts = [
     category: "Grains",
     price: 250,
     offerPrice: 230,
-    image: [wheat_flour_image],
+    image: [],
     description: [
       "High-quality whole wheat",
       "Soft and fluffy rotis",
@@ -559,7 +526,7 @@ export const dummyProducts = [
     category: "Grains",
     price: 450,
     offerPrice: 420,
-    image: [quinoa_image],
+    image: [],
     description: [
       "High in protein and fiber",
       "Gluten-free",
@@ -575,7 +542,7 @@ export const dummyProducts = [
     category: "Grains",
     price: 120,
     offerPrice: 110,
-    image: [brown_rice_image],
+    image: [],
     description: [
       "Whole grain and nutritious",
       "Helps in weight management",
@@ -591,7 +558,7 @@ export const dummyProducts = [
     category: "Grains",
     price: 150,
     offerPrice: 140,
-    image: [barley_image],
+    image: [],
     description: [
       "Rich in fiber",
       "Helps improve digestion",
@@ -609,7 +576,7 @@ export const dummyProducts = [
     category: "Bakery",
     price: 40,
     offerPrice: 35,
-    image: [brown_bread_image],
+    image: [],
     description: [
       "Soft and healthy",
       "Made from whole wheat",
@@ -625,7 +592,7 @@ export const dummyProducts = [
     category: "Bakery",
     price: 50,
     offerPrice: 45,
-    image: [butter_croissant_image],
+    image: [],
     description: [
       "Flaky and buttery",
       "Freshly baked",
@@ -641,7 +608,7 @@ export const dummyProducts = [
     category: "Bakery",
     price: 350,
     offerPrice: 325,
-    image: [chocolate_cake_image],
+    image: [],
     description: [
       "Rich and moist",
       "Made with premium cocoa",
@@ -657,7 +624,7 @@ export const dummyProducts = [
     category: "Bakery",
     price: 45,
     offerPrice: 40,
-    image: [whole_wheat_bread_image],
+    image: [],
     description: [
       "Healthy and nutritious",
       "Made with whole wheat flour",
@@ -673,7 +640,7 @@ export const dummyProducts = [
     category: "Bakery",
     price: 100,
     offerPrice: 90,
-    image: [vanilla_muffins_image],
+    image: [],
     description: [
       "Soft and fluffy",
       "Perfect for a quick snack",
@@ -692,7 +659,7 @@ export const dummyProducts = [
 
     price: 55,
     offerPrice: 50,
-    image: [maggi_image],
+    image: [],
     description: [
       "Instant and easy to cook",
       "Delicious taste",
@@ -708,7 +675,7 @@ export const dummyProducts = [
     category: "Instant",
     price: 45,
     offerPrice: 40,
-    image: [top_ramen_image],
+    image: [],
     description: [
       "Quick and easy to prepare",
       "Spicy and flavorful",
@@ -724,7 +691,7 @@ export const dummyProducts = [
     category: "Instant",
     price: 35,
     offerPrice: 30,
-    image: [knorr_soup_image],
+    image: [],
     description: [
       "Convenient for on-the-go",
       "Healthy and nutritious",
@@ -740,7 +707,7 @@ export const dummyProducts = [
     category: "Instant",
     price: 50,
     offerPrice: 45,
-    image: [yippee_image],
+    image: [],
     description: [
       "Non-fried noodles for healthier choice",
       "Tasty and filling",
@@ -756,7 +723,7 @@ export const dummyProducts = [
     category: "Instant",
     price: 40,
     offerPrice: 35,
-    image: [maggi_oats_image],
+    image: [],
     description: [
       "Healthy alternative with oats",
       "Good for digestion",
