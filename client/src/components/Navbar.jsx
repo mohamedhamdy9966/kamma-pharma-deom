@@ -95,9 +95,7 @@ const Navbar = () => {
                   My Orders
                 </li>
                 <li
-                  onClick={() => {
-                    logout;
-                  }}
+                  onClick={logout}
                   className="cursor-pointer p-1.5 pl-3 bg-primary hover:bg-primary-dull transition text-white rounded-full"
                 >
                   Logout
@@ -123,22 +121,14 @@ const Navbar = () => {
           </button>
         </div>
 
-        <button
-          onClick={() => (open ? setOpen(false) : setOpen(true))}
-          aria-label="Menu"
-        >
-          {/* Menu Icon SVG */}
+        <button onClick={() => setOpen(!open)} aria-label="Menu">
           <img src={assets.menu_icon} alt="menuIcon" />
         </button>
       </div>
 
       {/* Mobile Menu */}
       {open && (
-        <div
-          className={`${
-            open ? "flex" : "hidden"
-          } absolute top-[60px] left-0 w-full bg-white shadow-md py-4 flex-col items-start gap-2 px-5 text-sm md:hidden`}
-        >
+        <div className="absolute top-[37px] left-0 w-full bg-white shadow-md py-4 flex flex-col items-start gap-2 px-5 text-sm md:hidden z-50 text-gray-800">
           <NavLink to="/" className="block" onClick={() => setOpen(false)}>
             Home
           </NavLink>
@@ -162,7 +152,7 @@ const Navbar = () => {
             About
           </NavLink>
           <NavLink
-            href="/contact"
+            to="/contact"
             className="block"
             onClick={() => setOpen(false)}
           >
