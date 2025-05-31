@@ -39,46 +39,52 @@ const FAQ = () => {
   ];
 
   return (
-    <div className="px-4 md:px-10 lg:px-20">
+    <div className="px-4 md:px-10 lg:px-20 py-12">
       {/* Header */}
-      <div className="text-center text-3xl font-bold pt-10 border-t border-gray-300">
+      <div className="text-center text-4xl font-bold mb-6">
         <h2>
           Frequently Asked <span className="text-blue-600">Questions</span>
         </h2>
+        <p className="text-gray-500 mt-2 text-base">
+          Got questions? We've got answers.
+        </p>
       </div>
 
-      {/* FAQ Section */}
-      <div className="my-10 flex flex-col md:flex-row gap-16">
+      {/* Main Section */}
+      <div className="flex flex-col lg:flex-row gap-16 mb-16">
+        {/* Image or Placeholder */}
         {loading ? (
-          <div className="w-full md:max-w-[450px] h-64 bg-gray-300 animate-pulse rounded"></div>
+          <div className="w-full lg:max-w-md h-64 bg-gray-200 animate-pulse rounded-xl"></div>
         ) : (
           <img
             src={assets.faq}
             alt="FAQ illustration"
-            className="w-full md:max-w-[450px] rounded-lg shadow-md"
+            className="w-full lg:max-w-md rounded-xl shadow-lg"
           />
         )}
 
-        <div className="flex flex-col justify-center gap-6 md:w-2/4 text-gray-700">
+        {/* Description */}
+        <div className="flex flex-col justify-center gap-4 text-gray-700 max-w-2xl">
           {loading ? (
             <div className="space-y-3">
               <div className="h-4 bg-gray-300 animate-pulse w-3/4 rounded"></div>
               <div className="h-4 bg-gray-300 animate-pulse w-full rounded"></div>
               <div className="h-4 bg-gray-300 animate-pulse w-5/6 rounded"></div>
-              <div className="h-4 bg-gray-300 animate-pulse w-2/3 rounded"></div>
             </div>
           ) : (
-            <p>
-              At Kamma-Pharma, we know you may have questions. Below you'll find
-              answers to the most common ones about our products, orders, and
+            <p className="text-lg leading-relaxed">
+              At{" "}
+              <span className="font-semibold text-blue-600">Kamma-Pharma</span>,
+              we know you may have questions. Below you’ll find the most
+              commonly asked questions about our services, products, and
               policies.
             </p>
           )}
         </div>
       </div>
 
-      {/* FAQ List */}
-      <div className="mb-20 space-y-6">
+      {/* FAQ Cards */}
+      <div className="grid gap-6 mb-20">
         {loading
           ? Array(4)
               .fill(0)
@@ -91,17 +97,17 @@ const FAQ = () => {
           : faqs.map((faq, index) => (
               <div
                 key={index}
-                className="border-b pb-5 transition-all hover:bg-gray-50 px-2"
+                className="rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition duration-300 bg-white"
               >
-                <h3 className="font-semibold text-lg text-gray-800 mb-2">
+                <h3 className="text-lg font-semibold text-blue-800 mb-2">
                   {faq.question}
                 </h3>
-                <p className="text-gray-600">{faq.answer}</p>
+                <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
               </div>
             ))}
       </div>
 
-      {/* Newsletter Section */}
+      {/* Newsletter */}
       <NewsLetter />
     </div>
   );

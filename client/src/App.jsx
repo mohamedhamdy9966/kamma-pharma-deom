@@ -20,6 +20,9 @@ import Login from "./components/Login";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import ReturnPolicy from "./pages/ReturnPolicy";
+import DeliveryInformation from "./pages/DeliveryInformation";
+import PaymentMethods from "./pages/PaymentsMethods";
+import FAQ from "./pages/FAQ";
 
 const App = () => {
   const isSellerPath = useLocation().pathname.includes("seller");
@@ -38,6 +41,9 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/return-policy" element={<ReturnPolicy />} />
+          <Route path="/delivery" element={<DeliveryInformation />} />
+          <Route path="/payment-methods" element={<PaymentMethods />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="/products/:category" element={<ProductCategory />} />
           <Route path="/products/:category/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />

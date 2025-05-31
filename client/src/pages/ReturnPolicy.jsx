@@ -25,7 +25,7 @@ const ReturnPolicy = () => {
           <div className="w-full md:max-w-[450px] h-64 bg-gray-300 animate-pulse rounded"></div>
         ) : (
           <img
-            src={assets.return}
+            src={assets.refund}
             alt="Return policy illustration"
             className="w-full md:max-w-[450px] rounded-lg shadow-md"
           />

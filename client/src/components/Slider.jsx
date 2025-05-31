@@ -21,89 +21,49 @@ const Slider = () => {
     },
   };
   return (
-    <div className="container mx-auto px-4 py-8 justify-center">
-      <Carousel
-        swipeable={true}
-        draggable={true}
-        showDots={true}
-        responsive={responsive}
-        ssr={true} 
-        infinite={true}
-        autoPlay={true}
-        autoPlaySpeed={3000}
-        keyBoardControl={true}
-        customTransition="all .5"
-        transitionDuration={500}
-        containerClass="carousel-container"
-        removeArrowOnDeviceType={["tablet", "mobile"]}
-        deviceType="desktop"
-        dotListClass="custom-dot-list-style"
-        itemClass="carousel-item-padding-40-px"
-      >
-        <div className="p-4">
-          <img
-            src={assets.about}
-            alt="Item 3"
-            className="w-full h-auto"
-          />
-        </div>
-        <div className="p-4">
-          <img
-            src={assets.contact}
-            alt="Item 3"
-            className="w-full h-auto"
-          />
-        </div>
-        <div className="p-4">
-          <img
-            src={assets.about}
-            alt="Item 3"
-            className="w-full h-auto"
-          />
-        </div>
-        <div className="p-4">
-          <img
-            src={assets.contact}
-            alt="Item 3"
-            className="w-full h-auto"
-          />
-        </div>
-        <div className="p-4">
-          <img
-            src={assets.about}
-            alt="Item 3"
-            className="w-full h-auto"
-          />
-        </div>
-        <div className="p-4">
-          <img
-            src={assets.contact}
-            alt="Item 2"
-            className="w-full h-auto"
-          />
-        </div>
-        <div className="p-4">
-          <img
-            src={assets.about}
-            alt="Item 3"
-            className="w-full h-auto"
-          />
-        </div>
-        <div className="p-4">
-          <img
-            src={assets.contact}
-            alt="Item 1"
-            className="w-full h-auto"
-          />
-        </div>
-        <div className="p-4">
-          <img
-            src={assets.about}
-            alt="Item 3"
-            className="w-full h-auto"
-          />
-        </div>
-      </Carousel>
+    <div className="flex justify-center items-center px-1 py-8">
+      <div className="w-full max-w-6xl">
+        <Carousel
+          swipeable={true}
+          draggable={true}
+          showDots={true}
+          responsive={responsive}
+          ssr={true}
+          infinite={true}
+          autoPlay={true}
+          autoPlaySpeed={3000}
+          keyBoardControl={true}
+          customTransition="all .5"
+          transitionDuration={500}
+          containerClass="carousel-container"
+          removeArrowOnDeviceType={["tablet", "mobile"]}
+          dotListClass="custom-dot-list-style"
+          itemClass="carousel-item-padding-40-px"
+        >
+          {[
+            assets.wash,
+            assets.cream1,
+            assets.sunScreen1,
+            assets.wash1,
+            assets.sunScreen2,
+            assets.cream2,
+            assets.sunScreen5,
+            assets.creamMassage1,
+            assets.sunScreen4,
+            assets.creamMassage2,
+            assets.sunScreen3,
+            assets.cream3,
+          ].map((src, index) => (
+            <div className="p-4" key={index}>
+              <img
+                src={src}
+                alt={`Item ${index + 1}`}
+                className="w-full h-auto"
+              />
+            </div>
+          ))}
+        </Carousel>
+      </div>
     </div>
   );
 };

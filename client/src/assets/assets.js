@@ -32,9 +32,45 @@ import fresh_fruits_image from "./cream.png";
 import bottles_image from "./wash.png";
 import maggi_image from "./massaga.png";
 import dairy_product_image from "./sunscreen.png";
+import sunScreen1 from "./sun-screen-1.png";
+import sunScreen2 from "./sun-screen-4.png";
+import sunScreen3 from "./sun-block-1.png";
+import sunScreen4 from "./sun-block-2.png";
+import sunScreen5 from "./sun-block-3.png";
+import cream1 from "./cream-1.png";
+import cream2 from "./cream-2.png";
+import cream3 from "./cream-4.png";
+import creamMassage1 from "./cream-massage-1.png";
+import creamMassage2 from "./cream-massage.png";
+import rollon from "./roll-on.png";
+import rollon1 from "./roll-on-2.png";
+import wash from "./facial-wash-1.png";
+import wash1 from "./facial-wash.png";
+import delivery from "./delivery.png";
+import payment from "./payment.png";
+import refund from "./return.png";
+import faq from "./faq.png";
 
 export const assets = {
   logo,
+  delivery,
+  faq,
+  refund,
+  payment,
+  cream1,
+  cream2,
+  cream3,
+  creamMassage1,
+  creamMassage2,
+  rollon,
+  rollon1,
+  wash,
+  wash1,
+  sunScreen1,
+  sunScreen2,
+  sunScreen3,
+  sunScreen4,
+  sunScreen5,
   about,
   contact,
   search_icon,
@@ -102,21 +138,21 @@ export const footerLinks = [
   {
     title: "Quick Links",
     links: [
-      { text: "Home", url: "#" },
+      { text: "Home", url: "/" },
       { text: "Best Sellers", url: "#" },
       { text: "Offers & Deals", url: "#" },
-      { text: "Contact Us", url: "#" },
-      { text: "FAQs", url: "#" },
+      { text: "Contact Us", url: "/contact" },
+      { text: "FAQs", url: "/faq" },
     ],
   },
   {
     title: "Need help?",
     links: [
-      { text: "Delivery Information", url: "#" },
-      { text: "Return & Refund Policy", url: "#" },
-      { text: "Payment Methods", url: "#" },
+      { text: "Delivery Information", url: "/delivery" },
+      { text: "Return & Refund Policy", url: "/return-policy" },
+      { text: "Payment Methods", url: "/payment-methods" },
       { text: "Track your Order", url: "#" },
-      { text: "Contact Us", url: "#" },
+      { text: "Contact Us", url: "/contact" },
     ],
   },
   {
