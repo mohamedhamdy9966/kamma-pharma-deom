@@ -10,7 +10,8 @@ const AddProduct = () => {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [offerPrice, setOfferPrice] = useState("");
-  const { axios } = useAppContext();
+  const [inStock, setInStock] = useState(true);
+  const { axios, fetchProducts  } = useAppContext();
   const onSubmitHandler = async (event) => {
     try {
       event.preventDefault();
@@ -20,6 +21,7 @@ const AddProduct = () => {
         category,
         price,
         offerPrice,
+        inStock,
       };
       const formData = new FormData();
       formData.append("productData", JSON.stringify(productData));
@@ -29,6 +31,7 @@ const AddProduct = () => {
       const { data } = await axios.post("/api/product/add", formData);
       if (data.success) {
         toast.success(data.message);
+        fetchProducts ();
         setName("");
         setDescription("");
         setCategory("");
@@ -159,6 +162,18 @@ const AddProduct = () => {
               required
             />
           </div>
+        </div>
+        <div className="flex items-center gap-2 mt-2">
+          <input
+            type="checkbox"
+            id="inStock"
+            checked={inStock}
+            onChange={(e) => setInStock(e.target.checked)}
+            className="h-4 w-4"
+          />
+          <label htmlFor="inStock" className="text-base font-medium">
+            In Stock
+          </label>
         </div>
         <button className="cursor-pointer px-8 py-2.5 bg-indigo-500 text-white font-medium rounded">
           ADD

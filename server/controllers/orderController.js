@@ -162,10 +162,18 @@ export const getAllOrders = async (req, res) => {
     const orders = await Order.find({
       $or: [{ paymentType: "COD" }, { isPaid: true }],
     })
-      .populate("item.product address")
+      .populate("items.product")
+      .populate("address")
       .sort({ createdAt: -1 });
-    res.json({ success: true, orders });
+
+    return res.status(200).json({ success: true, orders });
   } catch (error) {
-    return res.json({ success: false, message: error.message });
+    console.error("getAllOrders error:", error);
+    if (!res.headersSent) {
+      return res.status(500).json({ success: false, message: error.message });
+    } else {
+      // Log or end silently to prevent crashing
+      console.warn("Headers already sent, cannot respond again.");
+    }
   }
 };

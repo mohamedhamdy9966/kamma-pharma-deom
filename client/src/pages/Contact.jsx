@@ -17,7 +17,8 @@ const Contact = () => {
 
               <br />
              <br />
-            <span className="block mt-2">0550681549 - 0558658516</span>
+            <span className="block mt-2">01207226094 - 01013645455</span>
+            <span className="block mt-2">support@kamma-pharma.com</span>
           </address>
 
           <p className="font-semibold text-2xl text-gray-700 mt-6">Jobs</p>

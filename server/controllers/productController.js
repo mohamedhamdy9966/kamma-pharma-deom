@@ -14,6 +14,9 @@ export const addProduct = async (req, res) => {
         return result.secure_url;
       })
     );
+    if (productData.inStock === undefined) {
+      productData.inStock = true;
+    }
     await Product.create({ ...productData, image: imagesUrl });
     res.json({ success: true, message: "Product Added" });
   } catch (error) {

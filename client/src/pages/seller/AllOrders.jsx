@@ -4,11 +4,13 @@ import { assets } from "../../assets/assets";
 import toast from "react-hot-toast";
 
 const AllOrders = () => {
-  const { currency,axios } = useAppContext();
+  const { currency, axios } = useAppContext();
   const [orders, setOrders] = useState([]);
+  const [hasFetched, setHasFetched] = useState(false);
+
   const fetchOrders = async () => {
     try {
-      const { data } = await axios.get("/api/order/seller");
+      const { data } = await axios.get("/api/order/");
       if (data.success) {
         setOrders(data.orders);
       } else {
@@ -16,15 +18,27 @@ const AllOrders = () => {
       }
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setHasFetched(true);
     }
   };
+
   useEffect(() => {
     fetchOrders();
   }, []);
+
   return (
     <div className="no-scrollbar flex-1 h-[95vh] overflow-y-scroll">
       <div className="md:p-10 p-4 space-y-4">
         <h2 className="text-lg font-medium">Orders List</h2>
+
+        {/* Show message if no orders after fetch */}
+        {hasFetched && orders.length === 0 && (
+          <div className="text-center text-gray-500 mt-10">
+            No orders yet.
+          </div>
+        )}
+
         {orders.map((order, index) => (
           <div
             key={index}
@@ -58,14 +72,16 @@ const AllOrders = () => {
               <p className="text-black/80">
                 {order.address.firstName} {order.address.lastName}
               </p>
-              <p>
-                {order.address.street}, {order.address.city},{" "}
+              <div>
                 <p>
-                  {order.address.state},{order.address.zipcode}, ,
-                  <p>{order.address.phone}</p>
+                  {order.address.street}, {order.address.city}
                 </p>
-                {order.address.country}
-              </p>
+                <p>
+                  {order.address.state}, {order.address.zipcode},{" "}
+                  {order.address.country}
+                </p>
+                <p>{order.address.phone}</p>
+              </div>
             </div>
 
             <p className="font-medium text-lg my-auto">

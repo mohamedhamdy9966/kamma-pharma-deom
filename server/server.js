@@ -16,9 +16,6 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // database connection
-
-
-
 app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhooks);
 
 // Middleware Configuration

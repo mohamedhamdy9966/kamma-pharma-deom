@@ -1,11 +1,13 @@
 import jwt from "jsonwebtoken";
-import User from "../models/User.js";
 
 // Login Seller : /api/seller/login
 
 export const sellerLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log("Login attempt:", email);
+    console.log("Expected email:", process.env.SELLER_EMAIL);
+    console.log("Expected password:", process.env.SELLER_PASSWORD);
     if (
       password === process.env.SELLER_PASSWORD &&
       email === process.env.SELLER_EMAIL
@@ -17,7 +19,7 @@ export const sellerLogin = async (req, res) => {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-        maxAge: 7 * 24 * 60 * 1000,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
       });
       return res.json({ success: true, message: "Logged In" });
     } else {
@@ -32,7 +34,7 @@ export const sellerLogin = async (req, res) => {
 // check seller Auth : /api/seller/is-auth
 export const isSellerAuth = async (req, res) => {
   try {
-    return res.json({ success: true, user });
+    return res.json({ success: true, message: "Authenticated" });
   } catch (error) {
     console.log(error.message);
     res.json({ success: false, message: error.message });
