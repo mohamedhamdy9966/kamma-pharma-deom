@@ -30,6 +30,7 @@ const allowedOrigins = [
   import.meta.env.VITE_FRONTEND_URL,
   "http://localhost:3000",
   "http://kamma-pharma.com",
+  "https://kamma-pharma-deom-front.vercel.app",
 ];
 
 app.use(
