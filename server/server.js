@@ -22,8 +22,29 @@ app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhooks);
 app.use(express.json());
 app.use(cookieParser());
 // app.use(cors({ origin: allowedOrigins, credentials: true }));
+// Replace this:
 app.use(cors({ origin: true, credentials: true }));
 
+// With this:
+const allowedOrigins = [
+  import.meta.env.VITE_FRONTEND_URL,
+  "http://localhost:3000",
+  "http://kamma-pharma.com",
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 
 app.get("/", (req, res) => res.send("API is Working"));
 app.use("/api/user", userRouter);

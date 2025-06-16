@@ -18,7 +18,7 @@ export const AppContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
 
-  // fetch User auth status, user data and cart items
+  // Update fetchUser function
   const fetchUser = async () => {
     try {
       const { data } = await axios.get("api/user/is-auth");
@@ -27,8 +27,14 @@ export const AppContextProvider = ({ children }) => {
         setCartItems(data.user.cartItems);
       }
     } catch (error) {
+      // Handle 401 specifically
+      if (error.response?.status === 401) {
+        console.log("Session expired, clearing tokens");
+        // Clear invalid tokens
+        document.cookie =
+          "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      }
       setUser(null);
-      console.log(error.message);
     }
   };
   // Fetch All Products

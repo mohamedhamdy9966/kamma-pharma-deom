@@ -18,11 +18,12 @@ export const register = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
-    // Update cookie settings in register and login
+    // In both register and login functions, update the cookie settings:
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      secure: true, // Always set to true for production
+      sameSite: "none", // Required for cross-site cookies
+      domain: ".vercel.app", // Add your domain
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     return res.json({
@@ -59,11 +60,12 @@ export const login = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
-    // Update cookie settings in register and login
+    // In both register and login functions, update the cookie settings:
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      secure: true, // Always set to true for production
+      sameSite: "none", // Required for cross-site cookies
+      domain: ".vercel.app", // Add your domain
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     return res.json({
