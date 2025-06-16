@@ -14,22 +14,21 @@ const SellerLogin = () => {
         email,
         password,
       });
+
       if (data.success) {
-        setIsSeller(true);
-        navigate("/seller");
+        setIsSeller(true); // Update context state
       } else {
         toast.error(data.message);
       }
     } catch (error) {
-      console.log(error);
-      toast.error(error.message);
+      toast.error(error.response?.data?.message || "Login failed");
     }
   };
   useEffect(() => {
     if (isSeller) {
       navigate("/seller");
     }
-  }, [isSeller]);
+  }, [isSeller, navigate]);
   return (
     !isSeller && (
       <form

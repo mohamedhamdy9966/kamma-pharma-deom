@@ -48,14 +48,10 @@ export const AppContextProvider = ({ children }) => {
   const fetchSeller = async () => {
     try {
       const { data } = await axios.get("/api/seller/is-auth");
-      if (data.success) {
-        setIsSeller(true);
-      } else {
-        setIsSeller(false);
-      }
+      setIsSeller(data.success);
     } catch (error) {
-      console.log(error.message);
       setIsSeller(false);
+      toast.error(error.message);
     }
   };
   // add product to cart
@@ -107,6 +103,15 @@ export const AppContextProvider = ({ children }) => {
     }
     return Math.floor(totalAmount * 100) / 100;
   };
+  // Add useEffect to re-check auth on refresh
+  useEffect(() => {
+    const checkAuth = async () => {
+      await fetchUser();
+      await fetchSeller();
+    };
+    window.addEventListener("focus", checkAuth);
+    return () => window.removeEventListener("focus", checkAuth);
+  }, []);
   // load All The Products
   useEffect(() => {
     fetchUser();

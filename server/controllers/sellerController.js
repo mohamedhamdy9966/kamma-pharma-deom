@@ -15,10 +15,11 @@ export const sellerLogin = async (req, res) => {
       const token = jwt.sign({ email }, process.env.JWT_SECRET, {
         expiresIn: "7d",
       });
+      // Update cookie settings in sellerLogin
       res.cookie("sellerToken", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
       return res.json({ success: true, message: "Logged In" });
@@ -31,13 +32,19 @@ export const sellerLogin = async (req, res) => {
   }
 };
 
-// check seller Auth : /api/seller/is-auth
+// Update isSellerAuth to actually verify credentials
 export const isSellerAuth = async (req, res) => {
   try {
+    // Verify token from middleware
+    if (!req.seller) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Not Authorized" });
+    }
     return res.json({ success: true, message: "Authenticated" });
   } catch (error) {
     console.log(error.message);
-    res.json({ success: false, message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
