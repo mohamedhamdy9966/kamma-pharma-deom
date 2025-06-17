@@ -21,21 +21,16 @@ app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhooks);
 // Middleware Configuration
 app.use(express.json());
 app.use(cookieParser());
-// app.use(cors({ origin: allowedOrigins, credentials: true }));
-// Replace this:
-app.use(cors({ origin: allowedOrigins, credentials: true }));
 
-// With this:
 const allowedOrigins = [
-  import.meta.env.VITE_FRONTEND_URL,
-  "http://localhost:3000",
-  "http://kamma-pharma.com",
   "https://kamma-pharma-deom-front.vercel.app",
+  "http://localhost:3000",
+  "https://kamma-pharma.com",
 ];
 
 app.use(
   cors({
-    origin: (origin, callback) => {
+    origin: function (origin, callback) {
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
