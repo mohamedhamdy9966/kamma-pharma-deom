@@ -23,7 +23,6 @@ export const register = async (req, res) => {
       httpOnly: true,
       secure: true, // Always set to true for production
       sameSite: "none", // Required for cross-site cookies
-      domain: ".vercel.app", // Add your domain
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     return res.json({
@@ -65,7 +64,6 @@ export const login = async (req, res) => {
       httpOnly: true,
       secure: true, // Always set to true for production
       sameSite: "none", // Required for cross-site cookies
-      domain: ".vercel.app", // Add your domain
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     return res.json({
