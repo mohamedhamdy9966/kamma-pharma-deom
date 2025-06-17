@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 // app.use(cors({ origin: allowedOrigins, credentials: true }));
 // Replace this:
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 
 // With this:
 const allowedOrigins = [
