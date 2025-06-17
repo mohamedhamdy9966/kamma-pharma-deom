@@ -11,6 +11,8 @@ export const AppContext = createContext();
 export const AppContextProvider = ({ children }) => {
   const currency = import.meta.env.VITE_CURRENCY;
   const navigate = useNavigate();
+  const [userToken, setUserToken] = useState(null);
+  const [sellerToken, setSellerToken] = useState(null);
   const [user, setUser] = useState(null);
   const [isSeller, setIsSeller] = useState(false);
   const [showUserLogin, setShowUserLogin] = useState(false);
@@ -20,21 +22,18 @@ export const AppContextProvider = ({ children }) => {
 
   // Update fetchUser function
   const fetchUser = async () => {
+    if (!userToken) return;
     try {
-      const { data } = await axios.get("api/user/is-auth", {
-      withCredentials: true
-    });
+      const { data } = await axios.get("api/user/is-auth");
       if (data.success) {
         setUser(data.user);
         setCartItems(data.user.cartItems);
       }
     } catch (error) {
-      // Handle 401 specifically
       if (error.response?.status === 401) {
-        console.log("Session expired, clearing tokens");
-        // Clear invalid tokens
-        document.cookie =
-          "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        localStorage.removeItem("userToken");
+        setUserToken(null);
+        delete axios.defaults.headers.common["Authorization"];
       }
       setUser(null);
     }
@@ -54,10 +53,9 @@ export const AppContextProvider = ({ children }) => {
   };
   // Fetch Seller Status
   const fetchSeller = async () => {
+    if (!sellerToken) return;
     try {
-      const { data } = await axios.get("api/seller/is-auth", {
-        withCredentials: true,
-      });
+      const { data } = await axios.get("api/seller/is-auth");
       setIsSeller(data.success);
     } catch (error) {
       setIsSeller(false);
@@ -122,6 +120,29 @@ export const AppContextProvider = ({ children }) => {
     window.addEventListener("focus", checkAuth);
     return () => window.removeEventListener("focus", checkAuth);
   }, []);
+  // Add useEffect for initial token loading
+  useEffect(() => {
+    const storedUserToken = localStorage.getItem("userToken");
+    const storedSellerToken = localStorage.getItem("sellerToken");
+
+    if (storedUserToken) {
+      setUserToken(storedUserToken);
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${storedUserToken}`;
+    }
+
+    if (storedSellerToken) {
+      setSellerToken(storedSellerToken);
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${storedSellerToken}`;
+    }
+
+    fetchUser();
+    fetchSeller();
+    fetchProducts();
+  }, []);
   // load All The Products
   useEffect(() => {
     fetchUser();
@@ -166,6 +187,10 @@ export const AppContextProvider = ({ children }) => {
     getCartAmount,
     axios,
     fetchProducts,
+    userToken,
+    setUserToken,
+    sellerToken,
+    setSellerToken,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

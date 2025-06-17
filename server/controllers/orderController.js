@@ -6,7 +6,8 @@ import User from "../models/User.js";
 // place order COD : /api/oder/cod
 export const placeOrderCOD = async (req, res) => {
   try {
-    const { userId, items, address } = req.body;
+    const userId = req.user.id;
+    const { items, address } = req.body;
     if (!address || items.length === 0) {
       return res.json({ success: false, message: "Invalid Data" });
     }
@@ -143,7 +144,7 @@ export const stripeWebhooks = async (request, response) => {
 // Get orders by user id : /api/order/user
 export const getUserOrders = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const userId = req.user.id;
     const orders = await Order.find({
       userId,
       $or: [{ paymentType: "COD" }, { isPaid: true }],

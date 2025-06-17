@@ -28,6 +28,7 @@ app.use(
     origin: [
       "https://kamma-pharma-deom-front.vercel.app",
       "http://localhost:3000",
+      "http://www.kamma-pharma.com",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],

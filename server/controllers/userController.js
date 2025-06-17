@@ -18,16 +18,9 @@ export const register = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
-    // In both register and login functions, update the cookie settings:
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true, // Always set to true for production
-      sameSite: "none", // Required for cross-site cookies
-      domain: ".vercel.app", // Add your domain
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
     return res.json({
       success: true,
+      token,
       user: { email: user.email, name: user.name },
     });
   } catch (error) {
@@ -60,16 +53,9 @@ export const login = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
-    // In both register and login functions, update the cookie settings:
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true, // Always set to true for production
-      sameSite: "none", // Required for cross-site cookies
-      domain: ".vercel.app", // Add your domain
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
     return res.json({
       success: true,
+      token,
       user: { email: user.email, name: user.name },
     });
   } catch (error) {
@@ -92,12 +78,6 @@ export const isAuth = async (req, res) => {
 // logout /api/user/logout
 export const logout = async (req, res) => {
   try {
-    res.clearCookie("token", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      domain: ".vercel.app",
-    });
     return res.json({ success: true, message: "Logged Out" });
   } catch (error) {
     console.log(error.message);
