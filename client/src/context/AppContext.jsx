@@ -21,7 +21,9 @@ export const AppContextProvider = ({ children }) => {
   // Update fetchUser function
   const fetchUser = async () => {
     try {
-      const { data } = await axios.get("api/user/is-auth");
+      const { data } = await axios.get("api/user/is-auth", {
+      withCredentials: true
+    });
       if (data.success) {
         setUser(data.user);
         setCartItems(data.user.cartItems);
@@ -53,7 +55,9 @@ export const AppContextProvider = ({ children }) => {
   // Fetch Seller Status
   const fetchSeller = async () => {
     try {
-      const { data } = await axios.get("/api/seller/is-auth");
+      const { data } = await axios.get("api/seller/is-auth", {
+        withCredentials: true,
+      });
       setIsSeller(data.success);
     } catch (error) {
       setIsSeller(false);
