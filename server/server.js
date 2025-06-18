@@ -1,5 +1,4 @@
 import express from "express";
-import cookieParser from "cookie-parser";
 import cors from "cors";
 import connectDB from "./configs/db.js";
 import "dotenv/config";
@@ -20,7 +19,6 @@ app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhooks);
 
 // Middleware Configuration
 app.use(express.json());
-app.use(cookieParser());
 
 // server.js
 app.use(
