@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 // import { data } from "react-router-dom";
 
 const SellerLogin = () => {
-  const { isSeller, setIsSeller, navigate, axios } = useAppContext();
+  const { isSeller, setIsSeller, navigate, axios, setSellerToken  } = useAppContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const onSubmitHandler = async (event) => {
@@ -16,6 +16,8 @@ const SellerLogin = () => {
       });
 
       if (data.success) {
+        localStorage.setItem("sellerToken", data.token); // Store token
+        setSellerToken(data.token);
         setIsSeller(true); // Update context state
       } else {
         toast.error(data.message);

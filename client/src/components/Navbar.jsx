@@ -15,11 +15,17 @@ const Navbar = () => {
     setSearchQuery,
     getCartCount,
     axios,
+     setUserToken,
   } = useAppContext();
   const logout = async () => {
     try {
-      const { data } = await axios.get("/api/user/logout");
+      const token = localStorage.getItem("userToken");
+      const { data } = await axios.get("/api/user/logout", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       if (data.success) {
+        localStorage.removeItem("userToken"); // Remove token
+        setUserToken(null);
         toast.success(data.message);
         setUser(null);
         navigate("/");

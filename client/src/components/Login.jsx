@@ -7,7 +7,7 @@ const Login = () => {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const { setShowUserLogin, setUser, axios, navigate } = useAppContext();
+  const { setShowUserLogin, setUser, axios, navigate, setUserToken } = useAppContext();
   const onSubmitHandler = async (event) => {
     try {
       event.preventDefault();
@@ -18,6 +18,8 @@ const Login = () => {
       });
       if (data.success) {
         navigate("/");
+        localStorage.setItem("userToken", data.token); // Store token
+        setUserToken(data.token);
         setUser(data.user);
         setShowUserLogin(false);
       } else {

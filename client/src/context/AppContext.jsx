@@ -22,9 +22,12 @@ export const AppContextProvider = ({ children }) => {
 
   // Update fetchUser function
   const fetchUser = async () => {
-    if (!userToken) return;
+    const token = localStorage.getItem("userToken");
+    if (!token) return;
     try {
-      const { data } = await axios.get("api/user/is-auth");
+      const { data } = await axios.get("api/user/is-auth", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (data.success) {
         setUser(data.user);
         setCartItems(data.user.cartItems);
@@ -53,12 +56,16 @@ export const AppContextProvider = ({ children }) => {
   };
   // Fetch Seller Status
   const fetchSeller = async () => {
-    if (!sellerToken) return;
+    const token = localStorage.getItem("sellerToken");
+    if (!token) return;
     try {
-      const { data } = await axios.get("api/seller/is-auth");
+      const { data } = await axios.get("api/seller/is-auth", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       setIsSeller(data.success);
     } catch (error) {
       setIsSeller(false);
+      localStorage.removeItem("sellerToken");
       toast.error(error.message);
     }
   };
@@ -119,6 +126,18 @@ export const AppContextProvider = ({ children }) => {
     };
     window.addEventListener("focus", checkAuth);
     return () => window.removeEventListener("focus", checkAuth);
+  }, []);
+  // Add useEffect for initial token loading
+  useEffect(() => {
+    const userToken = localStorage.getItem("userToken");
+    const sellerToken = localStorage.getItem("sellerToken");
+
+    if (userToken) setUserToken(userToken);
+    if (sellerToken) setSellerToken(sellerToken);
+
+    fetchUser();
+    fetchSeller();
+    fetchProducts();
   }, []);
   // Add useEffect for initial token loading
   useEffect(() => {
