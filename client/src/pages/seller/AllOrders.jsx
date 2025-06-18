@@ -10,11 +10,11 @@ const AllOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const token = localStorage.getItem('sellerToken');
+      const token = localStorage.getItem("sellerToken");
       const { data } = await axios.get("/api/order/", {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
       if (data.success) {
         setOrders(data.orders);
@@ -39,9 +39,7 @@ const AllOrders = () => {
 
         {/* Show message if no orders after fetch */}
         {hasFetched && orders.length === 0 && (
-          <div className="text-center text-gray-500 mt-10">
-            No orders yet.
-          </div>
+          <div className="text-center text-gray-500 mt-10">No orders yet.</div>
         )}
 
         {orders.map((order, index) => (
@@ -52,8 +50,8 @@ const AllOrders = () => {
             <div className="flex gap-5 max-w-80">
               <img
                 className="w-12 h-12 object-cover opacity-60"
-                src={assets.box_icon}
-                alt="boxIcon"
+                src={order.product.image?.[0] || assets.box_icon}
+                alt={order.product.name}
               />
               <div>
                 {order.items.map((item, index) => (
