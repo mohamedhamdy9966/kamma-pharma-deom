@@ -25,7 +25,10 @@ app.use(cookieParser());
 // server.js
 app.use(
   cors({
-    origin: "*",
+    origin: (origin, callback) => {
+      callback(null, origin); // Reflect the requesting origin
+    },
+    credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
