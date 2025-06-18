@@ -60,7 +60,7 @@ export const AppContextProvider = ({ children }) => {
     if (!token) return;
     try {
       const { data } = await axios.get("api/seller/is-auth", {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       setIsSeller(data.success);
     } catch (error) {
@@ -139,29 +139,6 @@ export const AppContextProvider = ({ children }) => {
     fetchSeller();
     fetchProducts();
   }, []);
-  // Add useEffect for initial token loading
-  useEffect(() => {
-    const storedUserToken = localStorage.getItem("userToken");
-    const storedSellerToken = localStorage.getItem("sellerToken");
-
-    if (storedUserToken) {
-      setUserToken(storedUserToken);
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${storedUserToken}`;
-    }
-
-    if (storedSellerToken) {
-      setSellerToken(storedSellerToken);
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${storedSellerToken}`;
-    }
-
-    fetchUser();
-    fetchSeller();
-    fetchProducts();
-  }, []);
   // load All The Products
   useEffect(() => {
     fetchUser();
@@ -172,10 +149,14 @@ export const AppContextProvider = ({ children }) => {
   useEffect(() => {
     const updateCart = async () => {
       try {
-        const { data } = await axios.post("/api/cart/update", { cartItems });
-        if (!data.success) {
-          toast.error(data.message);
-        }
+        const token = localStorage.getItem("userToken");
+        if (!token || !user) return;
+
+        await axios.post(
+          "/api/cart/update",
+          { cartItems },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
       } catch (error) {
         toast.error(error.message);
       }

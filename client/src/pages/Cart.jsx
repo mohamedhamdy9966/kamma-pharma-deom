@@ -34,7 +34,10 @@ const Cart = () => {
   // get user address
   const getUserAddress = async () => {
     try {
-      const { data } = await axios.get("/api/address/get");
+      const token = localStorage.getItem("userToken");
+      const { data } = await axios.get("/api/address/get", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (data.success) {
         setAddresses(data.addresses);
         if (data.addresses.length > 0) {
@@ -54,20 +57,28 @@ const Cart = () => {
   const totalAmountTaxShipping = cartAmount + shipping + tax;
   //   place order function
   const placeOrder = async () => {
+    const token = localStorage.getItem("userToken");
+    if (!token) {
+      toast.error("Please log in to place an order");
+      return;
+    }
     try {
       if (!selectedAddress) {
         return toast.error("Please Select an address");
       }
       // place order with cod
       if (paymentOption === "COD") {
-        const { data } = await axios.post("/api/order/cod", {
-          userId: user._id,
-          items: cartArray.map((item) => ({
-            product: item._id,
-            quantity: item.quantity,
-          })),
-          address: selectedAddress._id,
-        });
+        const { data } = await axios.post(
+          "/api/order/cod",
+          {
+            items: cartArray.map((item) => ({
+              product: item._id,
+              quantity: item.quantity,
+            })),
+            address: selectedAddress._id,
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
         if (data.success) {
           toast.success(data.message);
           setCartItems({});
@@ -86,7 +97,7 @@ const Cart = () => {
         if (data.success) {
           window.location.replace(data.url);
         } else {
-          toast.error(data.message)
+          toast.error(data.message);
         }
       }
     } catch (error) {

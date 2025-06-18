@@ -6,7 +6,10 @@ const MyOrders = () => {
   const { currency, axios, user } = useAppContext();
   const fetchMyOrders = async () => {
     try {
-      const { data } = await axios.get("/api/order/user");
+      const token = localStorage.getItem("userToken");
+      const { data } = await axios.get("/api/order/user", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (data.success) {
         setMyOrders(data.orders);
       }
