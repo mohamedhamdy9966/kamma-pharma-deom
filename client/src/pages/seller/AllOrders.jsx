@@ -37,7 +37,6 @@ const AllOrders = () => {
       <div className="md:p-10 p-4 space-y-4">
         <h2 className="text-lg font-medium">Orders List</h2>
 
-        {/* Show message if no orders after fetch */}
         {hasFetched && orders.length === 0 && (
           <div className="text-center text-gray-500 mt-10">No orders yet.</div>
         )}
@@ -47,28 +46,26 @@ const AllOrders = () => {
             key={index}
             className="flex flex-col md:items-center md:flex-row gap-5 p-5 max-w-4xl rounded-md border border-gray-300 text-gray-800"
           >
-            <div className="flex gap-5 max-w-80">
-              <img
-                className="w-12 h-12 object-cover opacity-60"
-                src={order.product.image?.[0] || assets.box_icon}
-                alt={order.product.name}
-              />
-              <div>
-                {order.items.map((item, index) => (
-                  <div key={index} className="flex flex-col justify-center">
-                    <p className="font-medium">
-                      {item.product.name}{" "}
-                      <span
-                        className={`text-indigo-500 ${
-                          item.quantity < 2 && "hidden"
-                        }`}
-                      >
-                        x {item.quantity}
-                      </span>
-                    </p>
-                  </div>
-                ))}
-              </div>
+            <div className="flex flex-col gap-4 max-w-80">
+              {order.items.map((item, idx) => (
+                <div key={idx} className="flex gap-4 items-center">
+                  <img
+                    className="w-12 h-12 object-cover rounded border border-gray-200"
+                    src={item.product.image?.[0] || assets.box_icon}
+                    alt={item.product.name}
+                  />
+                  <p className="font-medium">
+                    {item.product.name}{" "}
+                    <span
+                      className={`text-indigo-500 ${
+                        item.quantity < 2 && "hidden"
+                      }`}
+                    >
+                      x {item.quantity}
+                    </span>
+                  </p>
+                </div>
+              ))}
             </div>
 
             <div className="text-sm md:text-base text-black/60">
