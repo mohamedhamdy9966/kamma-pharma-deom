@@ -15,6 +15,12 @@ const AddProduct = () => {
   const onSubmitHandler = async (event) => {
     try {
       event.preventDefault();
+      const token = localStorage.getItem('sellerToken');
+      const { data } = await axios.post("/api/product/add", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       const productData = {
         name,
         description: description.split("\n"),

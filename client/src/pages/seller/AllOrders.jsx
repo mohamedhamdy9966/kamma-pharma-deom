@@ -10,7 +10,12 @@ const AllOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const { data } = await axios.get("/api/order/");
+      const token = localStorage.getItem('sellerToken');
+      const { data } = await axios.get("/api/order/", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       if (data.success) {
         setOrders(data.orders);
       } else {
