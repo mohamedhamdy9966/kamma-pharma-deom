@@ -25,12 +25,7 @@ app.use(cookieParser());
 // server.js
 app.use(
   cors({
-    origin: [
-      "https://kamma-pharma-deom-front.vercel.app",
-      "http://localhost:3000",
-      "http://www.kamma-pharma.com",
-    ],
-    credentials: true,
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
