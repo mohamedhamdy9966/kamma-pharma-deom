@@ -152,7 +152,7 @@ export const AppContextProvider = ({ children }) => {
         const token = localStorage.getItem("userToken");
         if (!token || !user) return;
 
-        await axios.post(
+        await axios.patch(
           "/api/cart/update",
           { cartItems },
           { headers: { Authorization: `Bearer ${token}` } }
