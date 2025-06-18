@@ -11,16 +11,12 @@ const AddProduct = () => {
   const [price, setPrice] = useState("");
   const [offerPrice, setOfferPrice] = useState("");
   const [inStock, setInStock] = useState(true);
-  const { axios, fetchProducts  } = useAppContext();
+  const { axios, fetchProducts } = useAppContext();
   const onSubmitHandler = async (event) => {
     try {
       event.preventDefault();
-      const token = localStorage.getItem('sellerToken');
-      const { data } = await axios.post("/api/product/add", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      const token = localStorage.getItem("sellerToken");
+
       const productData = {
         name,
         description: description.split("\n"),
@@ -34,10 +30,17 @@ const AddProduct = () => {
       for (let index = 0; index < files.length; index++) {
         formData.append("images", files[index]);
       }
-      const { data } = await axios.post("/api/product/add", formData);
+
+      const { data } = await axios.post("/api/product/add", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
       if (data.success) {
         toast.success(data.message);
-        fetchProducts ();
+        fetchProducts();
         setName("");
         setDescription("");
         setCategory("");
