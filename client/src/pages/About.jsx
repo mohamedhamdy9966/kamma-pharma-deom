@@ -6,7 +6,7 @@ const About = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 800); // Simulate loading
+    const timer = setTimeout(() => setLoading(false), 800);
     return () => clearTimeout(timer);
   }, []);
 
@@ -15,7 +15,7 @@ const About = () => {
       {/* About Us Section */}
       <div className="text-center text-3xl font-bold pt-10 border-t border-gray-300">
         <h2>
-          About <span className="text-blue-600">Kamma-Pharma</span>
+          About <span style={{ color: "#00a651" }}>Kamma-Pharma</span>
         </h2>
       </div>
 
@@ -70,7 +70,7 @@ const About = () => {
       {/* Why Choose Us Section */}
       <div className="text-center text-3xl font-bold mb-10">
         <h2>
-          Why Choose <span className="text-blue-600">Kamma-Pharma</span>
+          Why Choose <span style={{ color: "#00a651" }}>Kamma-Pharma</span>
         </h2>
       </div>
 
