@@ -87,7 +87,7 @@ const Navbar = () => {
           <>
             <div className="relative group">
               <img
-                src={assets.logo}
+                src={assets.profile_icon}
                 alt="profile"
                 className="cursor-pointer w-10  bg-primary hover:bg-primary-dull transition text-white rounded-full"
               />

@@ -165,8 +165,8 @@ export const footerLinks = [
       { text: "TikTok", url: "#" },
       { text: "SnapShot", url: "#" },
       { text: "LinkedIn", url: "https://www.linkedin.com/company/kamma-pharma/about/" },
-      { text: "WhatsApp", url: "#" },
-      { text: "Telegram", url: "#" },
+      { text: "WhatsApp", url: "" },
+      { text: "Telegram", url: "https://t.me/+4OqR0RlwOdVmYzVk" },
     ],
   },
 ];

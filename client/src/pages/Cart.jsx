@@ -52,7 +52,41 @@ const Cart = () => {
   };
   //   money
   const cartAmount = getCartAmount();
-  const shipping = 50;
+  const getShippingFee = () => {
+    const stateFee = {
+      Cairo: 50,
+      Giza: 60,
+      Alexandria: 70,
+      PortSaid: 65,
+      Suez: 65,
+      Dakahlia:40,
+      Sharqia:70,
+      Qalyubia:60,
+      KafrElSheikh:40,
+      Gharbia:30,
+      Monufia:50,
+      Beheira:65,
+      Ismailia:65,
+      Faiyum:80,
+      BeniSuef:85,
+      Minya:90,
+      Asyut:95,
+      Sohag:100,
+      Qena:100,
+      Aswan: 100,
+      Luxor: 100,
+      RedSea:120,
+      NewValley:130,
+      Matrouh:120,
+      NorthSinai:150,
+      SouthSinai:140,
+      Damietta:75,
+      Helwan:60,
+      October:60,
+    };
+    return selectedAddress?.state ? stateFee[selectedAddress.state] || 0 : 0;
+  };
+  const shipping = getShippingFee();
   const tax = (cartAmount * 1) / 100;
   const totalAmountTaxShipping = cartAmount + shipping + tax;
   //   place order function

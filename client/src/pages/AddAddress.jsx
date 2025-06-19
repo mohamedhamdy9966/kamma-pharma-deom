@@ -15,6 +15,38 @@ const InputField = ({ type, placeholder, name, handleChange, address }) => (
   />
 );
 const AddAddress = () => {
+  const states = [
+    { name: "Cairo", fee: 50 },
+    { name: "Giza", fee: 60 },
+    { name: "Alexandria", fee: 70 },
+    { name: "PortSaid", fee: 65 },
+    { name: "Suez", fee: 65 },
+    { name: "Dakahlia", fee: 40 },
+    { name: "Sharqia", fee: 70 },
+    { name: "Qalyubia", fee: 60 },
+    { name: "Kafr El Sheikh", fee: 40 },
+    { name: "Gharbia", fee: 30 },
+    { name: "Monufia", fee: 50 },
+    { name: "Beheira", fee: 65 },
+    { name: "Ismailia", fee: 65 },
+    { name: "Faiyum", fee: 80 },
+    { name: "BeniSuef", fee: 85 },
+    { name: "Minya", fee: 90 },
+    { name: "Asyut", fee: 95 },
+    { name: "Sohag", fee: 100 },
+    { name: "Qena", fee: 100 },
+    { name: "Luxor", fee: 90 },
+    { name: "Aswan", fee: 100 },
+    { name: "RedSea", fee: 120 },
+    { name: "NewValley", fee: 130 },
+    { name: "Matrouh", fee: 120 },
+    { name: "NorthSinai", fee: 150 },
+    { name: "SouthSinai", fee: 140 },
+    { name: "Damietta", fee: 75 },
+    { name: "Helwan", fee: 60 },
+    { name: "October", fee: 60 },
+  ];
+
   const { axios, user, navigate } = useAppContext();
   const [address, setAddress] = useState({
     firstName: "",
@@ -39,7 +71,7 @@ const AddAddress = () => {
     try {
       const token = localStorage.getItem("userToken");
       const { data } = await axios.post(
-        "/api/address/add", 
+        "/api/address/add",
         { address },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -53,11 +85,11 @@ const AddAddress = () => {
       toast.error(error.message);
     }
   };
-  useEffect(()=>{
+  useEffect(() => {
     if (!user) {
-      navigate('/cart')
+      navigate("/cart");
     }
-  },[])
+  }, []);
   return (
     <div className="mt-16 pb-16">
       <p className="text-2xl md:text-3xl text-gray-500">
@@ -104,13 +136,20 @@ const AddAddress = () => {
                 type="text"
                 placeholder="City"
               />
-              <InputField
-                handleChange={handleChange}
-                address={address}
+              <select
                 name="state"
-                type="text"
-                placeholder="State"
-              />
+                value={address.state}
+                onChange={handleChange}
+                className="w-full px-2 py-2.5 border border-gray-500/30 rounded outline-none text-gray-500 focus:border-primary transition"
+                required
+              >
+                <option value="">Select State</option>
+                {states.map((item, idx) => (
+                  <option key={idx} value={item.name}>
+                    {item.name} (+{item.fee} EGP)
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <InputField
