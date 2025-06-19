@@ -26,7 +26,7 @@ const BottomBanner = () => {
                 alt={feature.icon}
                 className="md:w-11 w-9"
               />
-              <div>
+              <div className="hidden md:block">
                 <h6 className="text-lg md:text-xl font-semibold">
                   {feature.title}
                 </h6>
