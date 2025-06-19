@@ -53,7 +53,7 @@ const Cart = () => {
   //   money
   const cartAmount = getCartAmount();
   const shipping = 50;
-  const tax = (cartAmount * 14) / 100;
+  const tax = (cartAmount * 1) / 100;
   const totalAmountTaxShipping = cartAmount + shipping + tax;
   //   place order function
   const placeOrder = async () => {
@@ -285,7 +285,7 @@ const Cart = () => {
             </span>
           </p>
           <p className="flex justify-between">
-            <span>Tax (14%)</span>
+            <span>Price include tax</span>
             <span>
               {currency}
               {tax}
