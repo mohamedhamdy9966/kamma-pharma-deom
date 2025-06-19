@@ -1,4 +1,4 @@
-import logo from "./kamma logo green.svg";
+import logo from "./logo-kama.png";
 import about from "./about.png";
 import contact from "./contact.png";
 import search_icon from "./search_icon.svg";
