@@ -10,7 +10,7 @@ const ProductDetails = () => {
   const [relatedProducts, setRelatedProducts] = useState([]);
 
   const product = products.find((item) => item._id === id);
-  const [thumbnail, setThumbnail] = useState(product.images[0]);
+  const [thumbnail, setThumbnail] = useState(null);
   useEffect(() => {
     if (products.length > 0) {
       let productsCopy = products.slice();
@@ -21,7 +21,7 @@ const ProductDetails = () => {
     }
   }, [products]);
   useEffect(() => {
-    setThumbnail(product?.image[0] ? product.image[0] : null);
+    (product?.image?.length ? setThumbnail(product.image[0]) : null );
   }, [product]);
   return (
     product && (
