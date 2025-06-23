@@ -9,8 +9,8 @@ const ProductDetails = () => {
   const { id } = useParams();
   const [relatedProducts, setRelatedProducts] = useState([]);
 
-  const [thumbnail, setThumbnail] = useState(product.images[0]);
   const product = products.find((item) => item._id === id);
+  const [thumbnail, setThumbnail] = useState(product.images[0]);
   useEffect(() => {
     if (products.length > 0) {
       let productsCopy = products.slice();
