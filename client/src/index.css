@@ -9,10 +9,19 @@
 }
 
 @theme {
-  --color-primary: #4fbf8b;
-  --color-primary-dull: #44ae7c;
+  --color-primary: #00a651;
+  --color-primary-dull: #daf2e5;
 }
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+body[dir='rtl'] {
+  direction: rtl;
+  text-align: right;
+}
+
+body [dir="rtl"] .rtl-flip{
+  transform: scaleX(-1);
 }

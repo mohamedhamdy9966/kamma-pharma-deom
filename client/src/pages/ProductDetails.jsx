@@ -21,7 +21,7 @@ const ProductDetails = () => {
     }
   }, [products]);
   useEffect(() => {
-    (product?.image?.length ? setThumbnail(product.image[0]) : null );
+    (product?.image?.length ? setThumbnail(product.image[0]) : setThumbnail(null) );
   }, [product]);
   return (
     product && (

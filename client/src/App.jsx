@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar";
+import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import { Toaster } from "react-hot-toast";
@@ -26,7 +27,11 @@ import FAQ from "./pages/FAQ";
 
 const App = () => {
   const isSellerPath = useLocation().pathname.includes("seller");
-  const { showUserLogin, isSeller } = useAppContext();
+  const { showUserLogin, isSeller, lang } = useAppContext();
+  useEffect(()=> {
+    document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = lang;
+  },[lang])
   return (
     <div className="text-default min-h-screen text-gray-700 bg-white">
       {isSellerPath ? null : <Navbar />}

@@ -11,6 +11,7 @@ export const AppContext = createContext();
 export const AppContextProvider = ({ children }) => {
   const currency = import.meta.env.VITE_CURRENCY;
   const navigate = useNavigate();
+  const [lang, setLang] = useState(localStorage.getItem('lang') || 'en');
   const [userToken, setUserToken] = useState(null);
   const [sellerToken, setSellerToken] = useState(null);
   const [user, setUser] = useState(null);
@@ -20,6 +21,12 @@ export const AppContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
 
+  // toggle languages
+  const toggleLang = () => {
+    const newLang = lang === 'en' ? 'ar' : 'en';
+    setLang(newLang);
+    localStorage.setItem('lang', newLang);
+  }
   // Update fetchUser function
   const fetchUser = async () => {
     const token = localStorage.getItem("userToken");
@@ -166,6 +173,8 @@ export const AppContextProvider = ({ children }) => {
     }
   }, [cartItems]);
   const value = {
+    lang,
+    toggleLang,
     currency,
     navigate,
     user,

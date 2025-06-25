@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
+import { translations } from "./locales";
 
 const Navbar = () => {
   const [open, setOpen] = React.useState(false);
@@ -15,13 +16,16 @@ const Navbar = () => {
     setSearchQuery,
     getCartCount,
     axios,
-     setUserToken,
+    setUserToken,
+    lang,
+    toggleLang,
   } = useAppContext();
+  const t = translations[lang];
   const logout = async () => {
     try {
       const token = localStorage.getItem("userToken");
       const { data } = await axios.get("/api/user/logout", {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       if (data.success) {
         localStorage.removeItem("userToken"); // Remove token
@@ -48,10 +52,10 @@ const Navbar = () => {
       </NavLink>
       {/* Desktop Menu */}
       <div className="hidden sm:flex items-center gap-8">
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/products">All Products</NavLink>
-        <NavLink to="/about">About</NavLink>
-        <NavLink to="/contact">Contact</NavLink>
+        <NavLink to="/">{t.home}</NavLink>
+        <NavLink to="/products">{t.products}</NavLink>
+        <NavLink to="/about">{t.about}</NavLink>
+        <NavLink to="/contact">{t.contact}</NavLink>
 
         <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
           <input
@@ -76,12 +80,30 @@ const Navbar = () => {
             {getCartCount()}
           </button>
         </div>
+        <button
+          onClick={toggleLang}
+          className="flex items-center gap-1 text-sm px-3 py-1 border rounded-full"
+        >
+          <span className="rtl-flip">{lang === "en" ? "عربي" : "English"}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path d="M12 2a10 10 0 1 0 10 10"></path>
+            <path d="M2 12h20"></path>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+        </button>
         {!user ? (
           <button
             onClick={() => setShowUserLogin(true)}
             className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition text-white rounded-full"
           >
-            Login
+            {t.login}
           </button>
         ) : (
           <>
@@ -98,13 +120,13 @@ const Navbar = () => {
                   }}
                   className="cursor-pointer p-1.5 pl-3 bg-primary hover:bg-primary-dull transition text-white rounded-full"
                 >
-                  My Orders
+                  {t.orders}
                 </li>
                 <li
                   onClick={logout}
                   className="cursor-pointer p-1.5 pl-3 bg-primary hover:bg-primary-dull transition text-white rounded-full"
                 >
-                  Logout
+                  {t.logout}
                 </li>
               </ul>
             </div>
@@ -136,14 +158,14 @@ const Navbar = () => {
       {open && (
         <div className="absolute top-[37px] left-0 w-full bg-white shadow-md py-4 flex flex-col items-start gap-2 px-5 text-sm md:hidden z-50 text-gray-800">
           <NavLink to="/" className="block" onClick={() => setOpen(false)}>
-            Home
+            {t.home}
           </NavLink>
           <NavLink
             to="/products"
             className="block"
             onClick={() => setOpen(false)}
           >
-            Products
+            {t.Products}
           </NavLink>
           {user && (
             <NavLink
@@ -151,18 +173,18 @@ const Navbar = () => {
               className="block"
               onClick={() => setOpen(false)}
             >
-              My Orders
+              {t.orders}
             </NavLink>
           )}
           <NavLink to="/about" className="block" onClick={() => setOpen(false)}>
-            About
+            {t.about}
           </NavLink>
           <NavLink
             to="/contact"
             className="block"
             onClick={() => setOpen(false)}
           >
-            Contact
+            {t.contact}
           </NavLink>
           {!user ? (
             <button
@@ -172,14 +194,14 @@ const Navbar = () => {
               }}
               className="cursor-pointer px-6 py-2 mt-2 bg-primary hover:bg-primary-dull transition text-white rounded-full text-sm"
             >
-              Login
+              {t.login}
             </button>
           ) : (
             <button
               onClick={logout}
               className="cursor-pointer px-6 py-2 mt-2 bg-primary hover:bg-primary-dull transition text-white rounded-full text-sm"
             >
-              Logout
+              {t.logout}
             </button>
           )}
         </div>
