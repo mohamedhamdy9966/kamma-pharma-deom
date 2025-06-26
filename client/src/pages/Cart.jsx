@@ -87,7 +87,7 @@ const Cart = () => {
     return selectedAddress?.state ? stateFee[selectedAddress.state] || 0 : 0;
   };
   const shipping = getShippingFee();
-  const tax = (cartAmount * 1) / 100;
+  const tax = (cartAmount * 0) / 100;
   const totalAmountTaxShipping = cartAmount + shipping + tax;
   //   place order function
   const placeOrder = async () => {

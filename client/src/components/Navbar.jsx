@@ -80,31 +80,35 @@ const Navbar = () => {
             {getCartCount()}
           </button>
         </div>
-        <button
-          onClick={toggleLang}
-          className="flex items-center gap-1 text-sm px-3 py-1 border rounded-full"
-        >
-          <span className="rtl-flip">{lang === "en" ? "عربي" : "English"}</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path d="M12 2a10 10 0 1 0 10 10"></path>
-            <path d="M2 12h20"></path>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-          </svg>
-        </button>
         {!user ? (
-          <button
-            onClick={() => setShowUserLogin(true)}
-            className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition text-white rounded-full"
-          >
-            {t.login}
-          </button>
+          <>
+            <button
+              onClick={() => setShowUserLogin(true)}
+              className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition text-white rounded-full"
+            >
+              {t.login}
+            </button>
+            <button
+              onClick={toggleLang}
+              className="flex items-center gap-1 text-sm px-3 py-1 border rounded-full"
+            >
+              <span className="rtl-flip">
+                {lang === "en" ? "عربي" : "English"}
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path d="M12 2a10 10 0 1 0 10 10"></path>
+                <path d="M2 12h20"></path>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            </button>
+          </>
         ) : (
           <>
             <div className="relative group">

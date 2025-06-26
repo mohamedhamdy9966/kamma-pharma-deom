@@ -9,6 +9,10 @@ export const translations = {
     products: "All Products",
     orders: "My Orders",
     logout: "Logout",
+    rights: "All Right Reserved",
+    brand: "Kamma-Pharma",
+    taxi: "taxi",
+    brief: "Kamma Pharma is a leading cosmetic company specializing in the development and distribution of high-quality skincare, personal care, and wellness products. With a strong commitment to innovation, safety, and natural ingredients, Kamma Pharma blends pharmaceutical expertise with cosmetic excellence to deliver trusted solutions that enhance beauty and well-being. The company serves both local and regional markets, aiming to set new standards in cosmetic care through research-driven products and customer-centric values."
   },
   ar: {
     home: "الرئيسية",
@@ -19,6 +23,10 @@ export const translations = {
     cart: "عربة التسوق",
     products: "جميع المنتجات",
     orders: "طلباتي",
-    logout: "تسجيل الخروج"
+    logout: "تسجيل الخروج",
+    rights: "جميع الحقوق محفوظة",
+    brand: "كاما-فارما",
+    taxi: "تاكسي",
+    brief: "شركة كاما فارما هي شركة رائدة في مجال مستحضرات التجميل، متخصصة في تطوير وتوزيع منتجات العناية بالبشرة، والعناية الشخصية، ومنتجات الصحة والجمال عالية الجودة. تلتزم كاما فارما بالابتكار والسلامة واستخدام المكونات الطبيعية، حيث تجمع بين الخبرة الصيدلانية والتميز التجميلي لتقديم حلول موثوقة تعزز الجمال والرفاهية. تخدم الشركة الأسواق المحلية والإقليمية، وتهدف إلى وضع معايير جديدة في مجال العناية التجميلية من خلال منتجات مدروسة تعتمد على البحث العلمي وتركز على رضا العملاء.",
   },
 };
