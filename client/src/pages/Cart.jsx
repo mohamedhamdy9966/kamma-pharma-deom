@@ -91,6 +91,7 @@ const Cart = () => {
   const totalAmountTaxShipping = cartAmount + shipping + tax;
   //   place order function
   const placeOrder = async () => {
+    console.log("placeOrder called", { paymentOption, user, selectedAddress });
     const token = localStorage.getItem("userToken");
     if (!token) {
       toast.error("Please log in to place an order");
