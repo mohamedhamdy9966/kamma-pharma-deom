@@ -40,8 +40,8 @@ export const placeOrderCOD = async (req, res) => {
 //     console.log("Paymob Auth Request Payload:", payload);
 //     const response = await axios.post(
 //       process.env.NODE_ENV === 'production'
-//         ? 'https://accept.sandbox.paymobsolutions.com/api/auth/tokens'
-//         : 'https://accept.paymobsolutions.com/api/auth/tokens',
+//         ? 'https://accept.sandbox.sandbox.paymobsolutions.com/api/auth/tokens'
+//         : 'https://accept.sandbox.paymobsolutions.com/api/auth/tokens',
 //       payload,
 //       { headers: { 'Content-Type': 'application/json' } }
 //     );
@@ -63,7 +63,7 @@ const getAuthToken = async () => {
     console.log("DEBUG: Cleaned key starts with →", cleanedKey?.slice(0, 20));
 
     const response = await axios.post(
-      "https://accept.paymobsolutions.com/api/auth/tokens",
+      "https://accept.sandbox.paymobsolutions.com/api/auth/tokens",
       { api_key: cleanedKey },
       {
         headers: {
@@ -88,7 +88,7 @@ const getAuthToken = async () => {
 const registerOrder = async (authToken, amountCents, merchantOrderId) => {
   try {
     const response = await axios.post(
-      "https://accept.paymobsolutions.com/api/ecommerce/orders",
+      "https://accept.sandbox.paymobsolutions.com/api/ecommerce/orders",
       {
         auth_token: authToken,
         delivery_needed: false,
@@ -116,7 +116,7 @@ const getPaymentKey = async (
 ) => {
   try {
     const response = await axios.post(
-      "https://accept.paymobsolutions.com/api/acceptance/payment_keys",
+      "https://accept.sandbox.paymobsolutions.com/api/acceptance/payment_keys",
       {
         auth_token: authToken,
         amount_cents: amountCents,
@@ -149,10 +149,13 @@ export const placeOrderPaymob = async (req, res) => {
     }
 
     // Calculate amount
-    let amount = await items.reduce(async (acc, item) => {
-      const product = await Product.findById(item.product);
-      return (await acc) + product.offerPrice * item.quantity;
-    }, 0);
+    const productTotals = await Promise.all(
+      items.map(async (item) => {
+        const product = await Product.findById(item.product);
+        return product.offerPrice * item.quantity;
+      })
+    );
+    let amount = productTotals.reduce((acc, val) => acc + val, 0);
     amount += shippingFee || 0; // Use provided shipping fee, default to 0
     amount += Math.floor(amount * 0); // Add tax (0% as per your code)
     amount = Math.floor(amount * 100); // Convert to cents
@@ -190,7 +193,7 @@ export const placeOrderPaymob = async (req, res) => {
       process.env.PAYMOB_INTEGRATION_ID
     );
 
-    const paymentUrl = `https://accept.paymobsolutions.com/api/acceptance/iframes/${process.env.PAYMOB_IFRAME_ID}?payment_token=${paymentKey}`;
+    const paymentUrl = `https://accept.sandbox.paymobsolutions.com/api/acceptance/iframes/${process.env.PAYMOB_IFRAME_ID}?payment_token=${paymentKey}`;
 
     return res.json({ success: true, url: paymentUrl });
   } catch (error) {
