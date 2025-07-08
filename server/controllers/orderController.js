@@ -39,7 +39,7 @@ const getAuthToken = async () => {
     const payload = { api_key: process.env.PAYMOB_API_KEY };
     console.log("Paymob Auth Request Payload:", payload);
     const response = await axios.post(
-      process.env.NODE_ENV === 'development'
+      process.env.NODE_ENV === 'production'
         ? 'https://accept.sandbox.paymobsolutions.com/api/auth/tokens'
         : 'https://accept.paymobsolutions.com/api/auth/tokens',
       payload,
