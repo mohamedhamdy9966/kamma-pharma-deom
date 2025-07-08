@@ -36,12 +36,19 @@ export const placeOrderCOD = async (req, res) => {
 // Paymob Helper Functions
 const getAuthToken = async () => {
   try {
+    const payload = { api_key: process.env.PAYMOB_API_KEY };
+    console.log("Paymob Auth Request Payload:", payload);
     const response = await axios.post(
-      "https://accept.paymobsolutions.com/api/auth/tokens",
-      { api_key: process.env.PAYMOB_API_KEY }
+      process.env.NODE_ENV === 'development'
+        ? 'https://accept.sandbox.paymobsolutions.com/api/auth/tokens'
+        : 'https://accept.paymobsolutions.com/api/auth/tokens',
+      payload,
+      { headers: { 'Content-Type': 'application/json' } }
     );
+    console.log("Paymob Auth Response:", response.data);
     return response.data.token;
   } catch (error) {
+    console.error("Paymob Auth Error Full Response:", error.response?.data);
     throw new Error(
       `Paymob Auth Token Error: ${
         error.response?.data?.message || error.message
@@ -49,6 +56,21 @@ const getAuthToken = async () => {
     );
   }
 };
+// const getAuthToken = async () => {
+//   try {
+//     const response = await axios.post(
+//       "https://accept.paymobsolutions.com/api/auth/tokens",
+//       { api_key: process.env.PAYMOB_API_KEY }
+//     );
+//     return response.data.token;
+//   } catch (error) {
+//     throw new Error(
+//       `Paymob Auth Token Error: ${
+//         error.response?.data?.message || error.message
+//       }`
+//     );
+//   }
+// };
 
 const registerOrder = async (authToken, amountCents, merchantOrderId) => {
   try {
