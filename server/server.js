@@ -9,13 +9,15 @@ import productRouter from "./routes/productRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import addressRouter from "./routes/addressRoute.js";
 import orderRouter from "./routes/orderRoute.js";
-import { stripeWebhooks } from "./controllers/orderController.js";
+// import { stripeWebhooks } from "./controllers/orderController.js";
+import { paymobWebhook } from "./controllers/orderController.js";
 
 const app = express();
 const port = process.env.PORT || 4000;
 
 // database connection
-app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhooks);
+// app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhooks);
+app.post("/paymob-webhook", express.json(), paymobWebhook);
 
 // Middleware Configuration
 app.use(express.json());

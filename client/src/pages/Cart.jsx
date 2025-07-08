@@ -59,30 +59,30 @@ const Cart = () => {
       Alexandria: 70,
       PortSaid: 65,
       Suez: 65,
-      Dakahlia:40,
-      Sharqia:70,
-      Qalyubia:60,
-      KafrElSheikh:40,
-      Gharbia:30,
-      Monufia:50,
-      Beheira:65,
-      Ismailia:65,
-      Faiyum:80,
-      BeniSuef:85,
-      Minya:90,
-      Asyut:95,
-      Sohag:100,
-      Qena:100,
+      Dakahlia: 40,
+      Sharqia: 70,
+      Qalyubia: 60,
+      KafrElSheikh: 40,
+      Gharbia: 30,
+      Monufia: 50,
+      Beheira: 65,
+      Ismailia: 65,
+      Faiyum: 80,
+      BeniSuef: 85,
+      Minya: 90,
+      Asyut: 95,
+      Sohag: 100,
+      Qena: 100,
       Aswan: 100,
       Luxor: 100,
-      RedSea:120,
-      NewValley:130,
-      Matrouh:120,
-      NorthSinai:150,
-      SouthSinai:140,
-      Damietta:75,
-      Helwan:60,
-      October:60,
+      RedSea: 120,
+      NewValley: 130,
+      Matrouh: 120,
+      NorthSinai: 150,
+      SouthSinai: 140,
+      Damietta: 75,
+      Helwan: 60,
+      October: 60,
     };
     return selectedAddress?.state ? stateFee[selectedAddress.state] || 0 : 0;
   };
@@ -120,18 +120,36 @@ const Cart = () => {
         }
       } else {
         // place order with stripe
-        const { data } = await axios.post("/api/order/stripe", {
-          userId: user._id,
-          items: cartArray.map((item) => ({
-            product: item._id,
-            quantity: item.quantity,
-          })),
-          address: selectedAddress._id,
-        });
+        //   const { data } = await axios.post("/api/order/stripe", {
+        //     userId: user._id,
+        //     items: cartArray.map((item) => ({
+        //       product: item._id,
+        //       quantity: item.quantity,
+        //     })),
+        //     address: selectedAddress._id,
+        //   });
+        //   if (data.success) {
+        //     window.location.replace(data.url);
+        //   } else {
+        //     toast.error(data.message);
+        //   }
+        // }
+        // Changed to Paymob
+        const { data } = await axios.post(
+          "/api/order/paymob",
+          {
+            userId: user._id,
+            items: cartArray.map((item) => ({
+              product: item._id,
+              quantity: item.quantity,
+            })),
+            address: selectedAddress._id,
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
         if (data.success) {
           window.location.replace(data.url);
-        } else {
-          toast.error(data.message);
         }
       }
     } catch (error) {
