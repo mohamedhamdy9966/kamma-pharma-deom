@@ -58,6 +58,7 @@ export const placeOrderCOD = async (req, res) => {
 // };
 const getAuthToken = async () => {
   try {
+    console.log("DEBUG: API KEY =", process.env.PAYMOB_API_KEY);
     const response = await axios.post(
       "https://accept.paymobsolutions.com/api/auth/tokens",
       { api_key: process.env.PAYMOB_API_KEY }
