@@ -106,7 +106,7 @@ const getPaymentKey = async (
 export const placeOrderPaymob = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { items, address } = req.body;
+    const { items, address, shippingFee } = req.body;
     const { origin } = req.headers;
 
     if (!address || items.length === 0) {
@@ -118,11 +118,8 @@ export const placeOrderPaymob = async (req, res) => {
       const product = await Product.findById(item.product);
       return (await acc) + product.offerPrice * item.quantity;
     }, 0);
-    // Add shipping fee (based on your frontend logic)
-    const shippingFee = await getShippingFee(address); // Implement this based on your frontend logic
-    amount += shippingFee;
-    // Add tax if applicable
-    amount += Math.floor(amount * 0); // Assuming tax is 0% as per your code
+    amount += shippingFee || 0; // Use provided shipping fee, default to 0
+    amount += Math.floor(amount * 0); // Add tax (0% as per your code)
     amount = Math.floor(amount * 100); // Convert to cents
 
     // Create order in DB

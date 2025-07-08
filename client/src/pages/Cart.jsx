@@ -138,6 +138,7 @@ const Cart = () => {
         //   }
         // }
         // Changed to Paymob
+        const shippingFee = getShippingFee();
         console.log("Sending Paymob request", {
           userId: user._id,
           items: cartArray.map((item) => ({
@@ -155,6 +156,7 @@ const Cart = () => {
               quantity: item.quantity,
             })),
             address: selectedAddress._id,
+            shippingFee,
           },
           { headers: { Authorization: `Bearer ${token}` } }
         );
