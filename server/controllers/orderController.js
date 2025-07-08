@@ -58,15 +58,13 @@ export const placeOrderCOD = async (req, res) => {
 // };
 const getAuthToken = async () => {
   try {
-    console.log(
-      "DEBUG: PAYMOB_API_KEY starts with →",
-      process.env.PAYMOB_API_KEY?.slice(0, 15)
-    );
+    const rawKey = process.env.PAYMOB_API_KEY;
+    const cleanedKey = rawKey?.trim(); // <<< أضف trim
+    console.log("DEBUG: Cleaned key starts with →", cleanedKey?.slice(0, 20));
+
     const response = await axios.post(
       "https://accept.paymobsolutions.com/api/auth/tokens",
-      {
-        api_key: process.env.PAYMOB_API_KEY,
-      },
+      { api_key: cleanedKey },
       {
         headers: {
           "Content-Type": "application/json",
