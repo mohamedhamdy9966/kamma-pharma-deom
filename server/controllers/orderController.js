@@ -58,13 +58,27 @@ export const placeOrderCOD = async (req, res) => {
 // };
 const getAuthToken = async () => {
   try {
-    console.log("DEBUG: API KEY =", process.env.PAYMOB_API_KEY);
+    console.log(
+      "DEBUG: PAYMOB_API_KEY starts with →",
+      process.env.PAYMOB_API_KEY?.slice(0, 15)
+    );
     const response = await axios.post(
       "https://accept.paymobsolutions.com/api/auth/tokens",
-      { api_key: process.env.PAYMOB_API_KEY }
+      {
+        api_key: process.env.PAYMOB_API_KEY,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
     return response.data.token;
   } catch (error) {
+    console.error(
+      "FULL PAYMOB AUTH ERROR:",
+      error.response?.data || error.message
+    );
     throw new Error(
       `Paymob Auth Token Error: ${
         error.response?.data?.message || error.message
