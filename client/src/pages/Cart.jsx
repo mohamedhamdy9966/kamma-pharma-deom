@@ -95,10 +95,12 @@ const Cart = () => {
     const token = localStorage.getItem("userToken");
     if (!token) {
       toast.error("Please log in to place an order");
+      console.error("No token found");
       return;
     }
     try {
       if (!selectedAddress) {
+        console.error("No address selected");
         return toast.error("Please Select an address");
       }
       // place order with cod
@@ -136,6 +138,14 @@ const Cart = () => {
         //   }
         // }
         // Changed to Paymob
+        console.log("Sending Paymob request", {
+          userId: user._id,
+          items: cartArray.map((item) => ({
+            product: item._id,
+            quantity: item.quantity,
+          })),
+          address: selectedAddress._id,
+        });
         const { data } = await axios.post(
           "/api/order/paymob",
           {
@@ -148,12 +158,17 @@ const Cart = () => {
           },
           { headers: { Authorization: `Bearer ${token}` } }
         );
-
+        console.log("Paymob response", data);
         if (data.success) {
+          console.log("Redirecting to", data.url);
           window.location.replace(data.url);
+        } else {
+          console.error("Paymob request failed", data);
+          toast.error(data.message);
         }
       }
     } catch (error) {
+      console.error("placeOrder error", error.response?.data || error.message);
       toast.error(error.message);
     }
   };
