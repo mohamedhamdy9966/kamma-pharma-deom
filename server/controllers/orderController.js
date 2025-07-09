@@ -4,6 +4,7 @@ import Order from "../models/Order.js";
 import User from "../models/User.js";
 import axios from "axios";
 import crypto from "crypto";
+import Address from "../models/Address.js";
 
 // place order COD : /api/oder/cod
 export const placeOrderCOD = async (req, res) => {
@@ -59,8 +60,14 @@ export const placeOrderCOD = async (req, res) => {
 const getAuthToken = async () => {
   try {
     const rawKey = process.env.PAYMOB_API_KEY;
-    const cleanedKey = rawKey?.trim(); // <<< أضف trim
-    console.log("DEBUG: Cleaned key starts with →", cleanedKey?.slice(0, 20));
+    if (!rawKey) {
+      throw new Error("PAYMOB_API_KEY is not defined in environment variables");
+    }
+    const cleanedKey = rawKey.trim();
+    console.log("DEBUG: Raw API Key:", rawKey);
+    console.log("DEBUG: Cleaned API Key:", cleanedKey);
+    console.log("DEBUG: API Key Length:", cleanedKey.length);
+    console.log("DEBUG: API Key Starts With:", cleanedKey.slice(0, 20));
 
     const response = await axios.post(
       "https://accept.paymobsolutions.com/api/auth/tokens",
@@ -68,15 +75,19 @@ const getAuthToken = async () => {
       {
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
       }
     );
+    console.log("DEBUG: Paymob Auth Response:", response.data);
     return response.data.token;
   } catch (error) {
-    console.error(
-      "FULL PAYMOB AUTH ERROR:",
-      error.response?.data || error.message
-    );
+    console.error("DEBUG: Paymob Auth Error:", {
+      message: error.message,
+      response: error.response?.data,
+      status: error.response?.status,
+      headers: error.response?.headers,
+    });
     throw new Error(
       `Paymob Auth Token Error: ${
         error.response?.data?.message || error.message
@@ -100,7 +111,7 @@ const registerOrder = async (authToken, amountCents, merchantOrderId) => {
     return response.data.id;
   } catch (error) {
     throw new Error(
-      `Paymob Auth Token Error: ${
+      `Paymob register order Error: ${
         error.response?.data?.message || error.message
       }`
     );
@@ -115,22 +126,37 @@ const getPaymentKey = async (
   integrationId
 ) => {
   try {
+    const payload = {
+      auth_token: authToken,
+      amount_cents: amountCents,
+      expiration: 3600,
+      order_id: orderId,
+      billing_data: billingData,
+      currency: "EGP",
+      integration_id: integrationId,
+    };
+    console.log("DEBUG: getPaymentKey Payload:", payload);
     const response = await axios.post(
       "https://accept.paymobsolutions.com/api/acceptance/payment_keys",
+      payload,
       {
-        auth_token: authToken,
-        amount_cents: amountCents,
-        expiration: 3600,
-        order_id: orderId,
-        billing_data: billingData,
-        currency: "EGP",
-        integration_id: integrationId,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
       }
     );
+    console.log("DEBUG: getPaymentKey Response:", response.data);
     return response.data.token;
   } catch (error) {
+    console.error("DEBUG: getPaymentKey Error:", {
+      message: error.message,
+      response: error.response?.data,
+      status: error.response?.status,
+      headers: error.response?.headers,
+    });
     throw new Error(
-      `Paymob Auth Token Error: ${
+      `Paymob get payment key Error: ${
         error.response?.data?.message || error.message
       }`
     );
@@ -144,6 +170,13 @@ export const placeOrderPaymob = async (req, res) => {
     const { items, address, shippingFee } = req.body;
     const { origin } = req.headers;
 
+    console.log("DEBUG: placeOrderPaymob Input:", {
+      userId,
+      items,
+      address,
+      shippingFee,
+    });
+
     if (!address || items.length === 0) {
       return res.json({ success: false, message: "Invalid Data" });
     }
@@ -152,13 +185,18 @@ export const placeOrderPaymob = async (req, res) => {
     const productTotals = await Promise.all(
       items.map(async (item) => {
         const product = await Product.findById(item.product);
+        if (!product) throw new Error(`Product ${item.product} not found`);
         return product.offerPrice * item.quantity;
       })
     );
     let amount = productTotals.reduce((acc, val) => acc + val, 0);
-    amount += shippingFee || 0; // Use provided shipping fee, default to 0
-    amount += Math.floor(amount * 0); // Add tax (0% as per your code)
+    amount += shippingFee || 0;
+    amount += Math.floor(amount * 0); // Tax
     amount = Math.floor(amount * 100); // Convert to cents
+    console.log("DEBUG: Calculated Amount (cents):", amount);
+    if (amount <= 0) {
+      throw new Error("Amount must be greater than zero");
+    }
 
     // Create order in DB
     const order = await Order.create({
@@ -169,21 +207,47 @@ export const placeOrderPaymob = async (req, res) => {
       paymentType: "Online",
       status: "Pending Payment",
     });
+    console.log("DEBUG: Created Order:", order._id);
 
-    // Get user for billing data
+    // Get user and address for billing data
     const user = await User.findById(userId);
+    const addressDoc = await Address.findById(address);
+    if (!addressDoc) throw new Error(`Address ${address} not found`);
+    console.log("DEBUG: User Data:", {
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+    });
+    console.log("DEBUG: Address Data:", addressDoc);
 
     // Paymob Integration
     const authToken = await getAuthToken();
+    console.log("DEBUG: Auth Token:", authToken);
     const paymobOrderId = await registerOrder(authToken, amount, order._id);
+    console.log("DEBUG: Paymob Order ID:", paymobOrderId);
 
     const billingData = {
-      first_name: user.name.split(" ")[0] || user.name || "Unknown",
-      last_name: user.name.split(" ")[1] || "",
-      email: user.email || "no-email@domain.com",
-      phone_number: user.phone || "01000000000",
-      country: "EGY",
+      first_name:
+        addressDoc.firstName ||
+        user.name.split(" ")[0] ||
+        user.name ||
+        "Unknown",
+      last_name: addressDoc.lastName || user.name.split(" ")[1] || "Unknown",
+      email: addressDoc.email || user.email || "no-email@domain.com",
+      phone_number: addressDoc.phone?.toString() || user.phone || "01000000000",
+      street: addressDoc.street || "Unknown",
+      building: addressDoc.building || "Unknown",
+      floor: addressDoc.floor || "Unknown",
+      apartment: addressDoc.apartment || "Unknown",
+      city: addressDoc.city || "Cairo",
+      state: addressDoc.state || "Cairo",
+      country:
+        addressDoc.country?.toUpperCase() === "EGYPT"
+          ? "EGY"
+          : addressDoc.country || "EGY",
+      postal_code: addressDoc.zipcode?.toString() || "00000",
     };
+    console.log("DEBUG: Billing Data:", billingData);
 
     const paymentKey = await getPaymentKey(
       authToken,
@@ -192,12 +256,18 @@ export const placeOrderPaymob = async (req, res) => {
       billingData,
       process.env.PAYMOB_INTEGRATION_ID
     );
+    console.log("DEBUG: Payment Key:", paymentKey);
 
     const paymentUrl = `https://accept.paymobsolutions.com/api/acceptance/iframes/${process.env.PAYMOB_IFRAME_ID}?payment_token=${paymentKey}`;
+    console.log("DEBUG: Payment URL:", paymentUrl);
 
     return res.json({ success: true, url: paymentUrl });
   } catch (error) {
-    console.error("Paymob Error:", error.response?.data || error.message);
+    console.error("DEBUG: placeOrderPaymob Error:", {
+      message: error.message,
+      response: error.response?.data,
+      status: error.response?.status,
+    });
     return res.json({ success: false, message: error.message });
   }
 };

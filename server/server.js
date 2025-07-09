@@ -15,6 +15,13 @@ import { paymobWebhook } from "./controllers/orderController.js";
 const app = express();
 const port = process.env.PORT || 4000;
 
+// Log environment variables for debugging
+console.log("Environment Variables:", {
+  MONGODB_URL: process.env.MONGODB_URL,
+  PAYMOB_API_KEY: process.env.PAYMOB_API_KEY,
+  PORT: process.env.PORT,
+});
+
 // database connection
 // app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhooks);
 app.post("/paymob-webhook", express.json(), paymobWebhook);
