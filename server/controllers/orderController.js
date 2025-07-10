@@ -41,10 +41,6 @@ const getAuthToken = async () => {
       throw new Error("PAYMOB_API_KEY is not defined in environment variables");
     }
     const cleanedKey = rawKey.trim();
-    console.log("DEBUG: Raw API Key:", rawKey);
-    console.log("DEBUG: Cleaned API Key:", cleanedKey);
-    console.log("DEBUG: API Key Length:", cleanedKey.length);
-    console.log("DEBUG: API Key Starts With:", cleanedKey.slice(0, 20));
 
     const response = await axios.post(
       "https://accept.paymobsolutions.com/api/auth/tokens",
@@ -56,7 +52,6 @@ const getAuthToken = async () => {
         },
       }
     );
-    console.log("DEBUG: Paymob Auth Response:", response.data);
     return response.data.token;
   } catch (error) {
     console.error("DEBUG: Paymob Auth Error:", {
