@@ -24,6 +24,8 @@ import ReturnPolicy from "./pages/ReturnPolicy";
 import DeliveryInformation from "./pages/DeliveryInformation";
 import PaymentMethods from "./pages/PaymentsMethods";
 import FAQ from "./pages/FAQ";
+import Success from "./pages/Success"; // Add this import
+import Cancel from "./pages/Cancel";  // Add this import
 
 const App = () => {
   const isSellerPath = useLocation().pathname.includes("seller");
