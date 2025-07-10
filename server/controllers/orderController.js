@@ -111,6 +111,8 @@ const getPaymentKey = async (
       billing_data: billingData,
       currency: "EGP",
       integration_id: integrationId,
+      success_url: `${origin}/success`, // Dynamic success URL
+      cancel_url: `${origin}/cancel`, // Dynamic cancel URL
     };
     console.log("DEBUG: getPaymentKey Payload:", payload);
     const response = await axios.post(
@@ -204,14 +206,14 @@ export const placeOrderPaymob = async (req, res) => {
     console.log("DEBUG: Paymob Order ID:", paymobOrderId);
 
     const billingData = {
-      first_name:
-        addressDoc.firstName ||
-        user.name.split(" ")[0] ||
-        user.name ||
-        "Unknown",
+      first_name: addressDoc.firstName || user.name.split(" ")[0] || "Unknown",
       last_name: addressDoc.lastName || user.name.split(" ")[1] || "Unknown",
       email: addressDoc.email || user.email || "no-email@domain.com",
-      phone_number: addressDoc.phone?.toString() || user.phone || "01000000000",
+      phone_number: addressDoc.phone
+        ? `+2${addressDoc.phone}`
+        : user.phone
+        ? `+2${user.phone}`
+        : "+201000000000",
       street: addressDoc.street || "Unknown",
       building: addressDoc.building || "Unknown",
       floor: addressDoc.floor || "Unknown",
@@ -231,7 +233,8 @@ export const placeOrderPaymob = async (req, res) => {
       amount,
       paymobOrderId,
       billingData,
-      process.env.PAYMOB_INTEGRATION_ID
+      process.env.PAYMOB_INTEGRATION_ID,
+      origin
     );
     console.log("DEBUG: Payment Key:", paymentKey);
 

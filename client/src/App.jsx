@@ -28,10 +28,10 @@ import FAQ from "./pages/FAQ";
 const App = () => {
   const isSellerPath = useLocation().pathname.includes("seller");
   const { showUserLogin, isSeller, lang } = useAppContext();
-  useEffect(()=> {
-    document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  useEffect(() => {
+    document.body.dir = lang === "ar" ? "rtl" : "ltr";
     document.documentElement.lang = lang;
-  },[lang])
+  }, [lang]);
   return (
     <div className="text-default min-h-screen text-gray-700 bg-white">
       {isSellerPath ? null : <Navbar />}
@@ -54,6 +54,10 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/add-address" element={<AddAddress />} />
           <Route path="/my-orders" element={<MyOrders />} />
+          <Route path="/success" element={<Success />} />{" "}
+          {/* Ensure this route exists */}
+          <Route path="/cancel" element={<Cancel />} />{" "}
+          {/* Ensure this route exists */}
           <Route path="/loader" element={<Loading />} />
           <Route
             path="/seller"
